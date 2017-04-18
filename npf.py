@@ -1,8 +1,8 @@
 from smeardata import fetchdata
 from smeardataplot import plotdata
-from dirooz.store import Store
-from dirooz.query import Query
-from dirooz.dataset import DataSet
+# from dirooz.store import Store
+# from dirooz.query import Query
+# from dirooz.dataset import DataSet
 
 plotdata(fetchdata('2011-03-26'))
 
