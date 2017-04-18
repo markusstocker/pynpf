@@ -4,9 +4,7 @@ from dirooz.store import Store
 from dirooz.query import Query
 from dirooz.dataset import DataSet
 
-date = '2011-03-26'
-data_set = fetchdata(date)
-plotdata(data_set)
+plotdata(fetchdata('2011-03-26'))
 
 # s = Store('http://localhost:3030/npfe-ld/query')
 # q = Query('get_dataset_template.rq',
