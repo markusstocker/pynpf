@@ -1,0 +1,38 @@
+# http://localhost:3030/pynpf/query
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?start ?end ?place ?countryCode ?locationMap ?point
+WHERE
+{
+  []
+    rdf:type lode:Event ;
+    lode:atTime [
+      rdf:type time:Interval ;
+      time:hasBeginning [
+        rdf:type time:Instant ;
+        time:inXSDDateTime ?start
+      ] ;
+      time:hasEnd [
+        rdf:type time:Instant ;
+        time:inXSDDateTime ?end
+      ]
+    ] ;
+    lode:atPlace [
+      rdf:type dul:Place ;
+      gn:name ?place ;
+      gn:countryCode ?countryCode ;
+      gn:locationMap ?locationMap
+    ] ;
+    lode:inSpace [
+      rdf:type sf:Point ;
+      geosparql:asWKT ?point
+    ]
+}

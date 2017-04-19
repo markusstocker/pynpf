@@ -1,0 +1,3 @@
+# http://localhost:3030/pynpf/update
+
+delete {?s ?p ?o} where {?s ?p ?o}
