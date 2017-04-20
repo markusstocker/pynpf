@@ -4,7 +4,7 @@ import requests
 class Store:
     def __init__(self, endpoint='http://localhost:3030', dataset='pynpf'):
         self.url = '{}/{}'.format(endpoint, dataset)
-        self.query_base_path = '../query/resources'
+        self.query_base_path = 'query/resources'
 
     def query(self, query):
         return requests.post('{}/{}'.format(self.url, 'query'),

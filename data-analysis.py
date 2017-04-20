@@ -7,10 +7,10 @@ from kb.store import Store
 
 date = '2011-03-26'
 
-plotdata(fetchdata(date))
+# plotdata(fetchdata(date))
 
 e = Event(date=date, place=Puijo())
-e.at_time(beginning='11:00', end='16:00')
+e.at_time(beginning='11:00', end='17:00')
 
 s = Store()
 s.add_event(e)
