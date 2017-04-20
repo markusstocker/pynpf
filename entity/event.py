@@ -16,7 +16,12 @@ class Event:
         self.space = Point(self.place.long, self.place.lat)
         self.time = None
         self.involved = None
-        self.uri = URIRef('{}{}'.format(Base.ns, md5(self.date.encode()).hexdigest()))
+        self.uri = URIRef('{}{}'.format(Base.ns,
+                                        md5('{}{}'.format(self.date,
+                                                          self.place.name)
+                                            .encode())
+                                        .hexdigest())
+                          )
 
     def at_place(self, place):
         self.place = place

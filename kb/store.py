@@ -3,21 +3,18 @@ import requests
 
 class Store:
     def __init__(self, endpoint='http://localhost:3030', dataset='pynpf'):
-        self.endpoint = endpoint
-        self.dataset = dataset
-        self.headers = {'Accept': 'application/sparql-results+json'}
-        self.query = None
-        self.query_string = None
-        self.data = None
+        self.url = '{}/{}'.format(endpoint, dataset)
+        self.query_base_path = '../query/resources'
 
     def query(self, query):
-        self.query = query
-        self.query_string = self.query.get_query()
-        self.data = {'query': self.query_string}
-        return requests.post(self.url, data=self.data, headers=self.headers).json()
+        return requests.post('{}/{}'.format(self.url, 'query'),
+                             data={'query': query},
+                             headers={'Accept': 'application/sparql-results+json'}).json()
+
+    def get_events(self):
+        return self.query(open('{}/{}'.format(self.query_base_path, 'select-events.rq')).read())
 
     def add_event(self, event):
-        url = self.endpoint + '/' + self.dataset + '/update'
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        data = {'update': 'INSERT DATA { ' + event.graph().serialize(format='nt').decode("utf-8") + ' }'}
-        requests.post(url, data=data, headers=headers)
+        requests.post('{}/{}'.format(self.url, 'update'),
+                      data={'update': 'INSERT DATA { ' + event.graph().serialize(format='nt').decode("utf-8") + ' }'},
+                      headers={'Content-Type': 'application/x-www-form-urlencoded'})
