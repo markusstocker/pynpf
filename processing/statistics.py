@@ -7,9 +7,7 @@ def duration(events, fun='avg', place=None):
 
     for binding in events['results']['bindings']:
         if place is not None:
-            print(place.name + ' ' + binding['placeName']['value'])
-            print(place.name != binding['placeName']['value'])
-            if place.name != binding['placeName']['value']:
+            if place.name.toPython() != binding['placeName']['value']:
                 continue
         beginning = dateutil.parser.parse(binding['beginningDateTime']['value'])
         end = dateutil.parser.parse(binding['endDateTime']['value'])

@@ -22,5 +22,8 @@ events = s.get_events()
 
 # mapevents(events)
 
-print(duration(events, fun='avg'))
+# event = s.get_event(date=date, place=Puijo())
+# describe(event)
+
+print(duration(events, fun='avg', place=Hyytiaelae()))
 
