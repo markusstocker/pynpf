@@ -5,6 +5,7 @@ from geomet import wkt
 
 
 def mapevents(events):
+    plt.figure(figsize=(10, 5), dpi=150)
     m = Basemap(projection='merc',
                 llcrnrlon=20.78,
                 llcrnrlat=59.76,
