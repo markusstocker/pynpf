@@ -12,7 +12,7 @@ def plotdata(dataset):
     y = range(0, n)
     x, y = np.meshgrid(x, y)
     z = np.transpose(np.array([row[1:] for row in dataset]).astype(np.float))
-    plt.figure(figsize=(10, 5), dpi=150)
+    plt.figure(figsize=(10, 5), dpi=100)
     plt.pcolormesh(x, y, z)
     plt.colorbar()
     plt.xlim(xmax=m-1)

@@ -1,15 +1,19 @@
 # http://localhost:3030/pynpf/query
 
+# http://localhost:3030/pynpf/query
+
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX lode: <http://linkedevents.org/ontology/>
 PREFIX time: <http://www.w3.org/2006/time#>
 PREFIX gn: <http://www.geonames.org/ontology#>
 PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
 PREFIX sf: <http://www.opengis.net/ont/sf#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
 
-SELECT ?start ?end ?place ?countryCode ?locationMap ?point
+SELECT ?start ?end ?place ?countryCode ?locationMap ?point ?classLabel
 WHERE
 {
   []
@@ -34,5 +38,8 @@ WHERE
     lode:inSpace [
       rdf:type sf:Point ;
       geosparql:asWKT ?point
+    ] ;
+    smear:hasEventClass [
+        rdfs:label ?classLabel
     ]
 }

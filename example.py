@@ -4,31 +4,41 @@ from entity.event import Event
 from entity.puijo import Puijo
 from entity.hyytiaelae import Hyytiaelae
 from entity.vaerrioe import Vaerrioe
+from entity.classIa import ClassIa
+from entity.classIb import ClassIb
+from entity.classII import ClassII
 from kb.store import Store
 from processing.visualization import mapevents
 from processing.statistics import duration
 from processing.description import describe
 from datetime import datetime, timedelta
+from smear.utils import date2datenum
+from factory import record, event, getevent, getevents
+from smear.utils import date2datenum, datenum2date
 
 
-date = '2013-04-04'
-place = Hyytiaelae()
+#print(datenum2date(736033))
 
-plotdata(fetchdata(date, place))
+# Example 1
+#date = '2013-04-04'
+#place = Hyytiaelae()
+#beginning = '11:00'
+#end = '20:00'
+#eventclass = ClassIa()
 
-# e = Event(date=date, place=Hyytiaelae())
-# e.at_time(beginning='12:00', end='17:00')
+# Example 2
+date = '2015-03-10'
+place = Vaerrioe()
+beginning = '09:00'
+end = '15:00'
+eventclass = ClassIb()
 
-#s = Store()
-# s.add_event(e)
+#plotdata(fetchdata(date, place))
 
-# events = s.get_events()
-# mapevents(events)
-# print(duration(events, fun='avg', place=Hyytiaelae()))
+#record(event(date, place, beginning, end, eventclass))
 
-#event = s.get_event(date=date, place=Hyytiaelae())
-#describe(event, format='text')
+mapevents(getevents())
+#print(duration(getevents(), fun='avg', place=place))
 
-#matlab_datenum = 735328
-#python_datetime = datetime.fromordinal(int(matlab_datenum)) + timedelta(days=matlab_datenum%1) - timedelta(days = 366)
-#print(python_datetime)
+#describe(getevent(date, place), format='text')
+

@@ -1,13 +1,15 @@
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX lode: <http://linkedevents.org/ontology/>
 PREFIX time: <http://www.w3.org/2006/time#>
 PREFIX gn: <http://www.geonames.org/ontology#>
 PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
 PREFIX sf: <http://www.opengis.net/ont/sf#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
 
-SELECT ?event ?beginningDateTime ?endDateTime ?placeName ?placeCountryCode ?placeLocationMap ?spacePoint
+SELECT ?event ?beginningDateTime ?endDateTime ?placeName ?placeCountryCode ?placeLocationMap ?spacePoint ?classLabel
 WHERE
 {
   ?event rdf:type lode:Event .
@@ -27,4 +29,6 @@ WHERE
   ?event lode:inSpace ?space .
   ?space rdf:type sf:Point .
   ?space geosparql:asWKT ?spacePoint .
+  ?event smear:hasEventClass ?eventClass .
+  ?eventClass rdfs:label ?classLabel .
 }

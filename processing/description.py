@@ -1,8 +1,10 @@
 import dateutil.parser
+from rdflib.namespace import RDFS
 from rdflib import Graph
 from vocab import Time
 from vocab import LODE
 from vocab import GeoNames
+from vocab import SmartSMEAR
 from IPython.core.display import display, HTML
 
 
@@ -12,8 +14,9 @@ def describe(event, format='text'):
     if format == 'text':
         beginningDateTime = dateutil.parser.parse(str(list(g[:Time.hasBeginning/Time.inXSDDateTime])[0][1].value))
         endDateTime = dateutil.parser.parse(str(list(g[:Time.hasEnd/Time.inXSDDateTime])[0][1].value))
-        print('A new particle formation event occurred at {} ({}) [{}] on {} starting at {} and ending at {}.'
-              .format(list(g[:LODE.atPlace/GeoNames.name])[0][1],
+        print('A {} new particle formation event occurred at {} ({}) [{}] on {} starting at {} and ending at {}.'
+              .format(list(g[:SmartSMEAR.hasEventClass/RDFS.label])[0][1],
+                      list(g[:LODE.atPlace/GeoNames.name])[0][1],
                       list(g[:LODE.atPlace/GeoNames.countryCode])[0][1],
                       list(g[:LODE.atPlace/GeoNames.locationMap])[0][1],
                       beginningDateTime.strftime('%Y-%m-%d'),

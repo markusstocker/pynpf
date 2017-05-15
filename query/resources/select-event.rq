@@ -1,11 +1,13 @@
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX lode: <http://linkedevents.org/ontology/>
 PREFIX time: <http://www.w3.org/2006/time#>
 PREFIX gn: <http://www.geonames.org/ontology#>
 PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
 PREFIX sf: <http://www.opengis.net/ont/sf#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
 
 CONSTRUCT {
   ?event rdf:type lode:Event .
@@ -25,6 +27,10 @@ CONSTRUCT {
   ?event lode:inSpace ?space .
   ?space rdf:type sf:Point .
   ?space geosparql:asWKT ?spacePoint .
+  ?event smear:hasEventClass ?eventClass .
+  ?eventClass rdf:type ?classType .
+  ?eventClass rdfs:label ?classLabel .
+  ?eventClass rdfs:comment ?classComment .
 }
 WHERE
 {
@@ -45,6 +51,10 @@ WHERE
   ?event lode:inSpace ?space .
   ?space rdf:type sf:Point .
   ?space geosparql:asWKT ?spacePoint .
+  ?event smear:hasEventClass ?eventClass .
+  ?eventClass rdf:type ?classType .
+  ?eventClass rdfs:label ?classLabel .
+  ?eventClass rdfs:comment ?classComment .
 
   FILTER (?placeName = "PLACE_NAME"^^xsd:string)
   FILTER (year(?beginningDateTime) = YEAR

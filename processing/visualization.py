@@ -9,8 +9,8 @@ def mapevents(events):
     m = Basemap(projection='merc',
                 llcrnrlon=20.78,
                 llcrnrlat=59.76,
-                urcrnrlon=29.98,
-                urcrnrlat=63.94,
+                urcrnrlon=31.98,
+                urcrnrlat=69.94,
                 resolution='i')
     m.drawcoastlines()
     m.drawcountries()

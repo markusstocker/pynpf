@@ -7,6 +7,7 @@ from entity.hyytiaelae import Hyytiaelae
 from entity.point import Point
 from vocab import LODE
 from vocab import Base
+from vocab import SmartSMEAR
 
 
 class Event:
@@ -15,7 +16,7 @@ class Event:
         self.place = place
         self.space = Point(self.place.long, self.place.lat)
         self.time = None
-        self.involved = None
+        self.eventclass = None
         self.uri = URIRef('{}{}'.format(Base.ns,
                                         md5('{}{}'.format(self.date,
                                                           self.place.name)
@@ -23,14 +24,11 @@ class Event:
                                         .hexdigest())
                           )
 
-    def at_place(self, place):
-        self.place = place
-
     def at_time(self, beginning, end):
         self.time = Interval(Instant(self.date, beginning), Instant(self.date, end))
 
-    def get_place(self):
-        return self.place
+    def event_class(self, eventclass):
+        self.eventclass = eventclass
 
     def graph(self):
         g = Graph()
@@ -38,10 +36,13 @@ class Event:
         g.add((self.uri, LODE.atPlace, self.place.uri))
         g.add((self.uri, LODE.atTime, self.time.uri))
         g.add((self.uri, LODE.inSpace, self.space.uri))
+        g.add((self.uri, SmartSMEAR.hasEventClass, self.eventclass.uri))
         for s, p, o in self.place.graph():
             g.add((s, p, o))
         for s, p, o in self.time.graph():
             g.add((s, p, o))
         for s, p, o in self.space.graph():
+            g.add((s, p, o))
+        for s, p, o in self.eventclass.graph():
             g.add((s, p, o))
         return g
