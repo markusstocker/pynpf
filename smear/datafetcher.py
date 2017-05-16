@@ -15,7 +15,7 @@ def fetchdata(date, place=Hyytiaelae()):
     smear_variables = place.smear_variables
 
     query = {'table': smear_table, 'quality': 'ANY', 'averaging': 'NONE', 'type': 'NONE',
-             'from': time_from, 'to': time_to, 'variables': smear_variables}
+             'from': str(time_from), 'to': str(time_to), 'variables': smear_variables}
     url = 'http://avaa.tdata.fi/smear-services/smeardata.jsp?' + urlencode(query)
     response = requests.post(url)
 

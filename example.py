@@ -27,13 +27,17 @@ from smear.utils import date2datenum, datenum2date
 #eventclass = ClassIa()
 
 # Example 2
-date = '2015-03-10'
-place = Vaerrioe()
-beginning = '09:00'
-end = '15:00'
-eventclass = ClassIb()
+#date = '2015-03-10'
+#place = Vaerrioe()
+#beginning = '09:00'
+#end = '15:00'
+#eventclass = ClassIb()
 
-#plotdata(fetchdata(date, place))
+# Examoke 3
+date = '2011-06-05'
+place = Hyytiaelae()
+
+plotdata(fetchdata(date, place))
 
 #record(event(date, place, beginning, end, eventclass))
 
