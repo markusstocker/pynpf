@@ -35,7 +35,7 @@ from smear.utils import date2datenum, datenum2date
 
 # Examoke 3
 date = '2011-06-05'
-place = Hyytiaelae()
+place = Puijo()
 
 plotdata(fetchdata(date, place))
 
