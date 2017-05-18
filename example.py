@@ -17,11 +17,12 @@ from factory import record, event, getevent, getevents
 from smear.utils import date2datenum, datenum2date
 
 
-#print(datenum2date(736033))
+#print(datenum2date(735117))
 
 # Example 1
-#date = '2013-04-04'
-#place = Hyytiaelae()
+date = '2013-04-04' # Event Class Ia
+date = '2012-09-07' # Non event
+place = Hyytiaelae()
 #beginning = '11:00'
 #end = '20:00'
 #eventclass = ClassIa()
@@ -34,14 +35,14 @@ from smear.utils import date2datenum, datenum2date
 #eventclass = ClassIb()
 
 # Examoke 3
-date = '2011-06-05'
-place = Puijo()
+#date = '2011-06-05'
+#place = Puijo()
 
 plotdata(fetchdata(date, place))
 
 #record(event(date, place, beginning, end, eventclass))
 
-mapevents(getevents())
+#mapevents(getevents())
 #print(duration(getevents(), fun='avg', place=place))
 
 #describe(getevent(date, place), format='text')
