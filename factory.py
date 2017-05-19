@@ -6,19 +6,16 @@ def record(event):
     Store().add_event(event)
 
 
-def event(date, place, beginning, end, eventclass):
+def event(date, place, beginning, end, classification):
     e = Event(date=date, place=place)
     e.at_time(beginning=beginning, end=end)
-    e.event_class(eventclass)
+    e.event_class(classification)
     return e
 
 
-def getevent(date, place):
-    return Store().get_event(date, place)
+def events(date=None, place=None, query='select'):
+    return Store().get_events(date, place, query)
 
-
-def getevents():
-    return Store().get_events()
 
 
 

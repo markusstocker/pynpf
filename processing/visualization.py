@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from geomet import wkt
 
 
-def mapevents(events):
+def map(events):
     plt.figure(figsize=(10, 5), dpi=150)
     m = Basemap(projection='merc',
                 llcrnrlon=20.78,
@@ -21,9 +21,9 @@ def mapevents(events):
     longs = list()
     lats = list()
 
-    for binding in events['results']['bindings']:
-        labels.append(binding['placeName']['value'])
-        point = wkt.loads(binding['spacePoint']['value'])
+    for event in events['results']['bindings']:
+        labels.append(event['placeName']['value'])
+        point = wkt.loads(event['spacePoint']['value'])
         coordinates = point['coordinates']
         longs.append(coordinates[0])
         lats.append(coordinates[1])

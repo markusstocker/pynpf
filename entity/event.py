@@ -16,7 +16,7 @@ class Event:
         self.place = place
         self.space = Point(self.place.long, self.place.lat)
         self.time = None
-        self.eventclass = None
+        self.classification = None
         self.uri = URIRef('{}{}'.format(Base.ns,
                                         md5('{}{}'.format(self.date,
                                                           self.place.name)
@@ -27,8 +27,8 @@ class Event:
     def at_time(self, beginning, end):
         self.time = Interval(Instant(self.date, beginning), Instant(self.date, end))
 
-    def event_class(self, eventclass):
-        self.eventclass = eventclass
+    def event_class(self, classification):
+        self.classification = classification
 
     def graph(self):
         g = Graph()
@@ -36,13 +36,13 @@ class Event:
         g.add((self.uri, LODE.atPlace, self.place.uri))
         g.add((self.uri, LODE.atTime, self.time.uri))
         g.add((self.uri, LODE.inSpace, self.space.uri))
-        g.add((self.uri, SmartSMEAR.hasEventClass, self.eventclass.uri))
+        g.add((self.uri, SmartSMEAR.hasEventClass, self.classification.uri))
         for s, p, o in self.place.graph():
             g.add((s, p, o))
         for s, p, o in self.time.graph():
             g.add((s, p, o))
         for s, p, o in self.space.graph():
             g.add((s, p, o))
-        for s, p, o in self.eventclass.graph():
+        for s, p, o in self.classification.graph():
             g.add((s, p, o))
         return g

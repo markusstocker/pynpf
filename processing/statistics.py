@@ -2,22 +2,20 @@ import dateutil.parser
 import datetime
 
 
-def duration(events, fun='avg', place=None):
+def duration(events, fun='avg'):
     timedeltas = list()
 
-    for binding in events['results']['bindings']:
-        if place is not None:
-            if place.name.toPython() != binding['placeName']['value']:
-                continue
-        beginning = dateutil.parser.parse(binding['beginningDateTime']['value'])
-        end = dateutil.parser.parse(binding['endDateTime']['value'])
+    for event in events['results']['bindings']:
+        beginning = dateutil.parser.parse(event['beginningDateTime']['value'])
+        end = dateutil.parser.parse(event['endDateTime']['value'])
         timedeltas.append((end-beginning))
 
     if fun == 'avg':
-        return sum(timedeltas, datetime.timedelta(0)) / len(timedeltas)
-    if fun == 'max':
-        return max(timedeltas)
-    if fun == 'min':
-        return min(timedeltas)
+        print(sum(timedeltas, datetime.timedelta(0)) / len(timedeltas))
+    elif fun == 'max':
+        print(max(timedeltas))
+    elif fun == 'min':
+        print(min(timedeltas))
+    else:
+        raise ValueError('Unsupported function: {}'.format(fun))
 
-    raise ValueError('Unsupported function: {}'.format(fun))

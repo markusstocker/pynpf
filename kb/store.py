@@ -8,23 +8,40 @@ class Store:
         self.url = '{}/{}'.format(endpoint, dataset)
         self.query_base_path = 'query/resources'
 
-    def query(self, query, headers):
+    def query(self, query, accept):
         return requests.post('{}/{}'.format(self.url, 'query'),
                              data={'query': query},
-                             headers=headers)
+                             headers={'Accept': accept})
 
-    def get_events(self):
-        return self.query(open('{}/{}'.format(self.query_base_path, 'select-events.rq')).read(),
-                          {'Accept': 'application/sparql-results+json'}).json()
+    def get_events(self, date=None, place=None, query='select'):
+        accept = 'application/sparql-results+json' if query == 'select' else 'application/rdf+xml'
 
-    def get_event(self, date='2011-03-26', place=Hyytiaelae()):
-        date = datetime.strptime(date, '%Y-%m-%d')
-        return self.query(open('{}/{}'.format(self.query_base_path, 'select-event.rq')).read()
-                          .replace('PLACE_NAME', place.name.toPython())
-                          .replace('YEAR', str(date.year))
-                          .replace('MONTH', str(date.month))
-                          .replace('DAY', str(date.day)),
-                          {'Accept': 'application/rdf+xml'}).text
+        if date is None and place is None:
+            rs = self.query(open('{}/{}-{}'.format(self.query_base_path, query, 'events-filter-none.rq')).read(),accept)
+        elif date is not None:
+            date = datetime.strptime(date, '%Y-%m-%d')
+            rs = self.query(open('{}/{}-{}'.format(self.query_base_path, query, 'events-filter-date.rq')).read()
+                            .replace('YEAR', str(date.year))
+                            .replace('MONTH', str(date.month))
+                            .replace('DAY', str(date.day)),
+                            accept)
+        elif place is not None:
+            rs = self.query(open('{}/{}-{}'.format(self.query_base_path, query, 'events-filter-place.rq')).read()
+                            .replace('PLACE_NAME', place.name.toPython()),
+                            accept)
+        else:
+            date = datetime.strptime(date, '%Y-%m-%d')
+            rs = self.query(open('{}/{}-{}'.format(self.query_base_path, query, 'events-filter-date-place.rq')).read()
+                            .replace('PLACE_NAME', place.name.toPython())
+                            .replace('YEAR', str(date.year))
+                            .replace('MONTH', str(date.month))
+                            .replace('DAY', str(date.day)),
+                            accept)
+
+        if query == 'select':
+            return rs.json()
+
+        return rs.text
 
     def add_event(self, event):
         requests.post('{}/{}'.format(self.url, 'update'),
