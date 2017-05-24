@@ -8,6 +8,9 @@ class Entity:
         self.set_identifier(identifier)
 
     def set_identifier(self, identifier):
+        if identifier is None:
+            return
+
         if self.identifier is None:
             self.identifier = identifier
             self.uri = URIRef(self.identifier)
@@ -18,4 +21,7 @@ class Entity:
 
     def get_identifier(self):
         return self.identifier
+
+    def get_uri(self):
+        return self.uri
 

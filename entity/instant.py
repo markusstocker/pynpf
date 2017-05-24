@@ -1,16 +1,15 @@
 from hashlib import md5
 from rdflib.namespace import RDF, XSD
-from rdflib import Graph, Literal, URIRef
+from rdflib import Graph, Literal
 from pytz import timezone
 from datetime import datetime
 from vocab import Time
 from vocab import Base
-import dateutil.parser
 from entity.entity import Entity
 
 
 class Instant(Entity):
-
+    
     def __init__(self, datetime):
         self.datetime = datetime
         self.iso_datetime = self.datetime.isoformat()
