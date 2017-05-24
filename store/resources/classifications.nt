@@ -1,0 +1,11 @@
+<http://avaa.tdata.fi/web/smart/smear/ClassIa> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://avaa.tdata.fi/web/smart/smear/Classification> .
+<http://avaa.tdata.fi/web/smart/smear/ClassIa> <http://www.w3.org/2000/01/rdf-schema#label> "Class Ia" .
+<http://avaa.tdata.fi/web/smart/smear/ClassIa> <http://www.w3.org/2000/01/rdf-schema#comment> "Very clear and strong event" .
+
+<http://avaa.tdata.fi/web/smart/smear/ClassIb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://avaa.tdata.fi/web/smart/smear/Classification> .
+<http://avaa.tdata.fi/web/smart/smear/ClassIb> <http://www.w3.org/2000/01/rdf-schema#label> "Class Ib" .
+<http://avaa.tdata.fi/web/smart/smear/ClassIb> <http://www.w3.org/2000/01/rdf-schema#comment> "Unclear event" .
+
+<http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://avaa.tdata.fi/web/smart/smear/Classification> .
+<http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/2000/01/rdf-schema#label> "Class II" .
+<http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/2000/01/rdf-schema#comment> "Event with little confidence level   " .

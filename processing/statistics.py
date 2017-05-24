@@ -5,9 +5,10 @@ import datetime
 def duration(events, fun='avg'):
     timedeltas = list()
 
-    for event in events['results']['bindings']:
-        beginning = dateutil.parser.parse(event['beginningDateTime']['value'])
-        end = dateutil.parser.parse(event['endDateTime']['value'])
+    for event in events:
+        at_time = event.get_at_time()
+        beginning = at_time.get_beginning().get_datetime()
+        end = at_time.get_end().get_datetime()
         timedeltas.append((end-beginning))
 
     if fun == 'avg':

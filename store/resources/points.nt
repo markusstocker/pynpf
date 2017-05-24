@@ -1,0 +1,11 @@
+<http://pangaea.de/7f885190eb43154e01c97f814b287a4b> <http://www.opengis.net/ont/geosparql#asWKT> "POINT (24.29077 61.84562)"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
+<http://pangaea.de/7f885190eb43154e01c97f814b287a4b> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/sf#Point> .
+<http://pangaea.de/7f885190eb43154e01c97f814b287a4b> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .
+
+<http://pangaea.de/0abeddbc6fdd22d777a57bb8b5c79db8> <http://www.opengis.net/ont/geosparql#asWKT> "POINT (27.65 62.91667)"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
+<http://pangaea.de/0abeddbc6fdd22d777a57bb8b5c79db8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/sf#Point> .
+<http://pangaea.de/0abeddbc6fdd22d777a57bb8b5c79db8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .
+
+<http://pangaea.de/736645b16a8d66ca1e4774a39825ca7e> <http://www.opengis.net/ont/geosparql#asWKT> "POINT (27.99231 67.46535)"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
+<http://pangaea.de/736645b16a8d66ca1e4774a39825ca7e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/sf#Point> .
+<http://pangaea.de/736645b16a8d66ca1e4774a39825ca7e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .

@@ -1,3 +1,3 @@
 from rdflib import Namespace
 
-ns = Namespace('http://example.org/')
+ns = Namespace('http://pangaea.de/')

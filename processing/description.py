@@ -11,21 +11,26 @@ from IPython.core.display import display, HTML
 def describe(events, format='text'):
 
     if format == 'text':
-        for event in events['results']['bindings']:
-            beginning = dateutil.parser.parse(event['beginningDateTime']['value'])
-            end = dateutil.parser.parse(event['endDateTime']['value'])
+        for event in events:
+            attime = event.get_at_time()
+            beginning = attime.get_beginning()
+            end = attime.get_end()
+            place = event.get_at_place()
             print('A {} event occurred at {} ({}) [{}] on {} starting at {} and ending at {}.'
-                  .format(event['classLabel']['value'],
-                          event['placeName']['value'],
-                          event['placeCountryCode']['value'],
-                          event['placeLocationMap']['value'],
-                          beginning.strftime('%Y-%m-%d'),
-                          beginning.strftime('%H:%M'),
-                          end.strftime('%H:%M')))
+                  .format(event.get_classification().label,
+                          place.get_name(),
+                          place.get_country_code(),
+                          place.get_location_map(),
+                          beginning.get_datetime().strftime('%Y-%m-%d'),
+                          beginning.get_datetime().strftime('%H:%M'),
+                          end.get_datetime().strftime('%H:%M')))
         return
 
     if format == 'rdf':
-        g = Graph().parse(data=events, format='xml')
+        g = Graph()
+        for event in events:
+            for s, p, o in event.graph():
+                g.add((s, p, o))
         print(g.serialize(format='n3', indent=4).decode('utf-8'))
         return
 

@@ -1,0 +1,10 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?pointUri ?pointWKT
+WHERE
+{
+  ?pointUri rdf:type sf:Point .
+  ?pointUri geo:asWKT ?pointWKT .
+}

@@ -2,16 +2,19 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def plotdata(dataset):
-    del dataset[0] # Remove header
-    for row in dataset: # Remove datetime data
+def plotdata(data):
+    if not data:
+        return
+
+    del data[0] # Remove header
+    for row in data: # Remove datetime data
         del row[0:6]
-    m = len(dataset)
-    n = len(dataset[0])
+    m = len(data)
+    n = len(data[0])
     x = range(0, m)
     y = range(0, n)
     x, y = np.meshgrid(x, y)
-    z = np.transpose(np.array([row[1:] for row in dataset]).astype(np.float))
+    z = np.transpose(np.array([row[1:] for row in data]).astype(np.float))
     plt.figure(figsize=(10, 5), dpi=100)
     plt.pcolormesh(x, y, z)
     plt.colorbar()

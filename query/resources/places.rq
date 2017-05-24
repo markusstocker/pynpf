@@ -1,0 +1,15 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+
+SELECT ?placeUri ?placeName ?placeCountryCode ?placeLocationMap ?placeLatitude ?placeLongitude
+WHERE
+{
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?placeUri wgs:lat ?placeLatitude .
+  ?placeUri wgs:long ?placeLongitude .
+}

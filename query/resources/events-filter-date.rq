@@ -1,0 +1,40 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?eventUri ?intervalUri ?beginningUri ?beginningDateTime
+  ?endUri ?endDateTime ?placeUri ?placeName ?placeCountryCode ?placeLocationMap
+  ?spaceUri ?spacePoint ?classificationUri ?classificationLabel
+WHERE
+{
+  ?eventUri rdf:type lode:Event .
+  ?eventUri lode:atTime ?intervalUri .
+  ?intervalUri rdf:type time:Interval .
+  ?intervalUri time:hasBeginning ?beginningUri .
+  ?beginningUri rdf:type time:Instant .
+  ?beginningUri time:inXSDDateTime ?beginningDateTime .
+  ?intervalUri time:hasEnd ?endUri .
+  ?endUri rdf:type time:Instant .
+  ?endUri time:inXSDDateTime ?endDateTime .
+  ?eventUri lode:atPlace ?placeUri .
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?eventUri lode:inSpace ?spaceUri .
+  ?spaceUri rdf:type sf:Point .
+  ?spaceUri geosparql:asWKT ?spacePoint .
+  ?eventUri smear:hasClassification ?classificationUri .
+  ?classificationUri rdfs:label ?classificationLabel .
+
+  FILTER (year(?beginningDateTime) = YEAR
+    && month(?beginningDateTime) = MONTH
+    && day(?beginningDateTime) = DAY)
+}

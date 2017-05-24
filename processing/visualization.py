@@ -21,9 +21,9 @@ def map(events):
     longs = list()
     lats = list()
 
-    for event in events['results']['bindings']:
-        labels.append(event['placeName']['value'])
-        point = wkt.loads(event['spacePoint']['value'])
+    for event in events:
+        labels.append(event.get_at_place().get_name())
+        point = wkt.loads(event.get_in_space().get_wkt())
         coordinates = point['coordinates']
         longs.append(coordinates[0])
         lats.append(coordinates[1])

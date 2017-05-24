@@ -1,19 +1,14 @@
 from smear.datafetcher import fetchdata
 from smear.dataplotter import plotdata
 from entity.event import Event
-from entity.puijo import Puijo
-from entity.hyytiaelae import Hyytiaelae
-from entity.vaerrioe import Vaerrioe
-from entity.classIa import ClassIa
-from entity.classIb import ClassIb
-from entity.classII import ClassII
-from kb.store import Store
+from store.store import Store
 from processing.visualization import map
 from processing.statistics import duration
 from processing.description import describe
 from datetime import datetime, timedelta
 from smear.utils import date2datenum
-from factory import record, event, events
+from entity.point import Point
+from factory import record, event, events, places, classes
 from smear.utils import date2datenum, datenum2date
 import time
 
@@ -21,34 +16,34 @@ import time
 #print(datenum2date(735117))
 
 # Example 1
-date = '2013-04-04' # Event Class Ia
-#date = '2012-09-07' # Non event
-place = Hyytiaelae()
+date = '2013-04-04'
+place = 'Hyytiälä'
 beginning = '11:00'
 end = '19:00'
-classification = ClassIa()
+classification = 'Class Ia'
 
 # Example 2
 #date = '2015-03-10'
-#place = Vaerrioe()
+#place = 'Värriö'
 #beginning = '09:00'
 #end = '15:00'
-#classification = ClassIb()
+#classification = 'Class Ib'
 
-# Examoke 3
+# Example 3
 #date = '2011-06-05'
-#place = Puijo()
+#place = 'Puijo'
 
 #plotdata(fetchdata(date, place))
 
-#record(event(date, place, beginning='09:00', end='15:00', classification=ClassIb()))
+#record(event(date, place, beginning, end, classification))
 
-#map(events())
+map(events())
 
 #start = time.time()
 #duration(events(), fun='avg')
 #end = time.time()
 #print(end - start)
 
-#describe(events(query='construct'), format='rdf')
+#describe(events(), format='text')
+
 

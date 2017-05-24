@@ -1,0 +1,11 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?classificationUri ?classificationLabel ?classificationComment
+WHERE
+{
+  ?classificationUri rdf:type smear:Classification .
+  ?classificationUri rdfs:label ?classificationLabel .
+  ?classificationUri rdfs:comment ?classificationComment .
+}

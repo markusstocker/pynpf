@@ -3,8 +3,8 @@ from rdflib import Namespace
 
 ns = Namespace('http://avaa.tdata.fi/web/smart/smear/')
 
-EventClass = ns['EventClass']
-hasEventClass = ns['hasEventClass']
+Classification = ns['Classification']
+hasClassification = ns['hasClassification']
 
 # dal Maso et al. (2005): Formation and growth of fresh atmospheric aerosols: eight years of aerosol size
 # distribution data from SMEAR II, Hyytiälä, Finland, BOREAL ENVIRONMENT RESEARCH 10: 323–336
