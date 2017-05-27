@@ -1,5 +1,5 @@
 from rdflib import Graph
-from vocab import LODE, Base, SmartSMEAR, WGS84, Time, GeoSPARQL, GeoNames
+from vocab import LODE, Base, SmartSMEAR, WGS84, Time, GeoSPARQL, GeoNames, SimpleFeatures, DUL
 from rdflib.namespace import NamespaceManager
 
 
@@ -29,6 +29,9 @@ def describe(events, format='text'):
         manager.bind('geosparql', GeoSPARQL.ns)
         manager.bind('smear', SmartSMEAR.ns)
         manager.bind('gn', GeoNames.ns)
+        manager.bind('sf', SimpleFeatures.ns)
+        manager.bind('DUL', DUL.ns)
+        manager.bind('', Base.ns)
         g = Graph(namespace_manager=manager)
         for event in events:
             for s, p, o in event.graph():
