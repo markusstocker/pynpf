@@ -60,6 +60,8 @@ class Event(Entity):
         g.add((self.uri, LODE.inSpace, self.geometry.uri))
         g.add((self.uri, LODE.atTime, self.time.uri))
         g.add((self.uri, SmartSMEAR.hasClassification, self.classification.uri))
+        for s, p, o in self.place.graph():
+            g.add((s, p, o))
         for s, p, o in self.geometry.graph():
             g.add((s, p, o))
         for s, p, o in self.time.graph():

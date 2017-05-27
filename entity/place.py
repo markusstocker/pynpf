@@ -1,5 +1,4 @@
-from vocab import GeoNames
-from vocab import DUL
+from vocab import GeoNames, DUL, WGS84
 from rdflib.namespace import RDF, XSD
 from rdflib import Graph, URIRef, Literal
 from entity.entity import Entity
@@ -29,3 +28,14 @@ class Place(Entity):
 
     def get_longitude(self):
         return self.longitude
+
+    def graph(self):
+        g = Graph()
+        g.add((self.uri, RDF.type, DUL.Place))
+        g.add((self.uri, RDF.type, GeoNames.Feature))
+        g.add((self.uri, GeoNames.name, Literal(self.name, datatype=XSD.string)))
+        g.add((self.uri, GeoNames.countryCode, Literal(self.country_code, datatype=XSD.string)))
+        g.add((self.uri, GeoNames.locationMap, URIRef(self.location_map)))
+        g.add((self.uri, WGS84.lat, Literal(self.latitude, datatype=XSD.double)))
+        g.add((self.uri, WGS84.long, Literal(self.longitude, datatype=XSD.double)))
+        return g
