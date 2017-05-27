@@ -36,6 +36,6 @@ class Place(Entity):
         g.add((self.uri, GeoNames.name, Literal(self.name, datatype=XSD.string)))
         g.add((self.uri, GeoNames.countryCode, Literal(self.country_code, datatype=XSD.string)))
         g.add((self.uri, GeoNames.locationMap, URIRef(self.location_map)))
-        g.add((self.uri, WGS84.lat, Literal(self.latitude, datatype=XSD.double)))
-        g.add((self.uri, WGS84.long, Literal(self.longitude, datatype=XSD.double)))
+        g.add((self.uri, WGS84.lat, Literal(self.latitude)))
+        g.add((self.uri, WGS84.long, Literal(self.longitude)))
         return g

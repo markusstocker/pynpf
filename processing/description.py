@@ -1,11 +1,6 @@
-import dateutil.parser
-from rdflib.namespace import RDFS
 from rdflib import Graph
-from vocab import Time
-from vocab import LODE
-from vocab import GeoNames
-from vocab import SmartSMEAR
-from IPython.core.display import display, HTML
+from vocab import LODE, Base, SmartSMEAR, WGS84, Time, GeoSPARQL, GeoNames
+from rdflib.namespace import NamespaceManager
 
 
 def describe(events, format='text'):
@@ -27,7 +22,14 @@ def describe(events, format='text'):
         return
 
     if format == 'rdf':
-        g = Graph()
+        manager = NamespaceManager(Graph())
+        manager.bind('wgs84', WGS84.ns)
+        manager.bind('lode', LODE.ns)
+        manager.bind('time', Time.ns)
+        manager.bind('geosparql', GeoSPARQL.ns)
+        manager.bind('smear', SmartSMEAR.ns)
+        manager.bind('gn', GeoNames.ns)
+        g = Graph(namespace_manager=manager)
         for event in events:
             for s, p, o in event.graph():
                 g.add((s, p, o))

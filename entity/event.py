@@ -5,10 +5,7 @@ from entity.interval import Interval
 from entity.instant import Instant
 from entity.point import Point
 from entity.entity import Entity
-from vocab import LODE
-from vocab import Base
-from vocab import SmartSMEAR
-
+from vocab import LODE, Base, SmartSMEAR
 
 class Event(Entity):
     def __init__(self, date=None, place=None):
