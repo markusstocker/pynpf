@@ -8,4 +8,4 @@
 
 <http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://avaa.tdata.fi/web/smart/smear/Classification> .
 <http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/2000/01/rdf-schema#label> "Class II" .
-<http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/2000/01/rdf-schema#comment> "Event with little confidence level   " .
+<http://avaa.tdata.fi/web/smart/smear/ClassII> <http://www.w3.org/2000/01/rdf-schema#comment> "Event with little confidence level" .

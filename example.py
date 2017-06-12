@@ -14,6 +14,7 @@ import time
 
 
 #print(datenum2date(734546))
+#print(date2datenum('2013-04-04'))
 
 # Example 1
 date = '2013-04-04'
@@ -44,6 +45,6 @@ classification = 'Class Ia'
 #end = time.time()
 #print(end - start)
 
-describe(events(place=place), format='rdf')
+#describe(events(place=place), format='rdf')
 
 
