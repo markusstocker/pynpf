@@ -2,7 +2,7 @@ from smear.datafetcher import fetchdata
 from smear.dataplotter import plotdata
 from entity.event import Event
 from store.store import Store
-from processing.visualization import map
+from processing.visualization import smap
 from processing.statistics import duration
 from processing.description import describe
 from datetime import datetime, timedelta
@@ -33,18 +33,21 @@ classification = 'Class Ia'
 # Example 3
 #date = '2011-06-05'
 #place = 'Puijo'
+#beginning = '10:00'
+#end = '17:00'
+#classification = 'Class Ia'
 
 #plotdata(fetchdata(date, place))
 
 #record(event(date, place, beginning, end, classification))
 
-#map(events())
+#smap(events())
 
 #start = time.time()
 #duration(events(), fun='avg')
 #end = time.time()
 #print(end - start)
 
-#describe(events(place=place), format='rdf')
+describe(events(place=place), format='rdf')
 
 

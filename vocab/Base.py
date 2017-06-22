@@ -1,3 +1,4 @@
 from rdflib import Namespace
+from vocab import SmartSMEAR
 
-ns = Namespace('http://pangaea.de/')
+ns = SmartSMEAR.ns

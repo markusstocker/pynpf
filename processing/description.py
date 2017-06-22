@@ -1,6 +1,6 @@
 from rdflib import Graph
 from vocab import LODE, Base, SmartSMEAR, WGS84, Time, GeoSPARQL, GeoNames, SimpleFeatures, DUL
-from rdflib.namespace import NamespaceManager
+from rdflib import Namespace
 
 
 def describe(events, format='text'):
@@ -22,20 +22,19 @@ def describe(events, format='text'):
         return
 
     if format == 'rdf':
-        manager = NamespaceManager(Graph())
-        manager.bind('wgs84', WGS84.ns)
-        manager.bind('lode', LODE.ns)
-        manager.bind('time', Time.ns)
-        manager.bind('geosparql', GeoSPARQL.ns)
-        manager.bind('smear', SmartSMEAR.ns)
-        manager.bind('gn', GeoNames.ns)
-        manager.bind('sf', SimpleFeatures.ns)
-        manager.bind('DUL', DUL.ns)
-        g = Graph(namespace_manager=manager)
+        g = Graph()
+        g.bind('wgs84', WGS84.ns)
+        g.bind('lode', LODE.ns)
+        g.bind('time', Time.ns)
+        g.bind('geosparql', GeoSPARQL.ns)
+        g.bind('gn', GeoNames.ns)
+        g.bind('sf', SimpleFeatures.ns)
+        g.bind('DUL', DUL.ns)
+        g.bind('smear', SmartSMEAR.ns)
         for event in events:
             for s, p, o in event.graph():
                 g.add((s, p, o))
-        print(g.serialize(format='n3', indent=4).decode('utf-8'))
+        print(g.serialize(format='turtle', indent=4).decode('utf-8'))
         return
 
     raise ValueError('Unsupported format: {}'.format(format))

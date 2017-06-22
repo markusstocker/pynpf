@@ -7,6 +7,7 @@ from entity.point import Point
 from entity.entity import Entity
 from vocab import LODE, Base, SmartSMEAR
 
+
 class Event(Entity):
     def __init__(self, date=None, place=None):
         self.date = date
@@ -62,5 +63,7 @@ class Event(Entity):
         for s, p, o in self.geometry.graph():
             g.add((s, p, o))
         for s, p, o in self.time.graph():
+            g.add((s, p, o))
+        for s, p, o in self.classification.graph():
             g.add((s, p, o))
         return g
