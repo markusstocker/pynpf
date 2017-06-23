@@ -12,6 +12,14 @@ sudo jupyter nbextension enable --py --sys-prefix widgetsnbextension
 See also: http://jupyter.org/widgets.html
 See also: https://github.com/ellisonbg/ipyleaflet/
 
+JupyterHub
+sudo apt-get install npm nodejs-legacy
+sudo python3 -m pip install jupyterhub
+sudo npm install -g configurable-http-proxy
+See also: http://jupyterhub.readthedocs.io/en/latest/quickstart.html
+
+sudo apt-get install texlive-xetex
+
 ## Tests
 
 python -m unittest discover
