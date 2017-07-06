@@ -24,8 +24,11 @@ def imap(events):
         coord = point['coordinates']
         coords.append([coord[0], coord[1]])
 
-    c = centroid(coords)
-    m = Map(center=[c[1], c[0]], zoom=4)
+    if coords:
+        c = centroid(coords)
+        m = Map(center=[c[1], c[0]], zoom=4)
+    else:
+        m = Map(zoom=1)
 
     for index, coord in enumerate(coords):
         mark = Marker(location=[coord[1], coord[0]], title=labels[index])
