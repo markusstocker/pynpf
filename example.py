@@ -13,7 +13,7 @@ from smear.utils import date2datenum, datenum2date
 import time
 
 
-#print(datenum2date(734546))
+print(datenum2date(736711))
 #print(date2datenum('2013-04-04'))
 
 # Example 1
@@ -48,6 +48,6 @@ classification = 'Class Ia'
 #end = time.time()
 #print(end - start)
 
-describe(events(place=place), format='rdf')
+#describe(events(place=place), format='rdf')
 
 

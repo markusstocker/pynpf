@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 from matplotlib import pyplot as plt
 
 
@@ -6,15 +7,17 @@ def plotdata(data):
     if not data:
         return
 
-    del data[0] # Remove header
-    for row in data: # Remove datetime data
+    d = copy.deepcopy(data)
+
+    del d[0] # Remove header
+    for row in d: # Remove datetime data
         del row[0:6]
-    m = len(data)
-    n = len(data[0])
+    m = len(d)
+    n = len(d[0])
     x = range(0, m)
     y = range(0, n)
     x, y = np.meshgrid(x, y)
-    z = np.transpose(np.array([row[1:] for row in data]).astype(np.float))
+    z = np.transpose(np.array([row[1:] for row in d]).astype(np.float))
     plt.figure(figsize=(10, 5), dpi=100)
     plt.pcolormesh(x, y, z)
     plt.colorbar()
