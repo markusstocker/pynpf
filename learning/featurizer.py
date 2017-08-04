@@ -1,4 +1,5 @@
 from datetime import datetime
+from sklearn.decomposition import TruncatedSVD
 
 
 def featurize(data):
@@ -13,13 +14,16 @@ def featurize(data):
         r = [float(i) for i in r]  # convert data matrix to numbers
         m.append(r)
 
-    dtidx = daytimeindex(t)
-    dtot = total(m)
-    dttot = total(m[dtidx[0]:dtidx[1]])
-    ntot = total(newparticles(m))
-    dtntot = total(newparticles(m[dtidx[0]:dtidx[1]]))
+    svd = TruncatedSVD(n_components=1)
 
-    return [dtot, dttot, ntot, dtntot]
+#    dtidx = daytimeindex(t)
+#    dtot = total(m)
+#    dttot = total(m[dtidx[0]:dtidx[1]])
+#    ntot = total(newparticles(m))
+#    dtntot = total(newparticles(m[dtidx[0]:dtidx[1]]))
+
+    # Transposes the matrix first
+    return svd.fit_transform(list(map(list, zip(*m))))
 
 
 # Computes the start and end index of daytime (6 am - 6 pm)

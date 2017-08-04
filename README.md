@@ -4,6 +4,9 @@ sudo apt-get install python3-mpltoolkits.basemap
 sudo pip3 install rdflib
 sudo pip3 install geomet
 sudo pip3 install rdflib-jsonld
+sudo pip3 install pandas
+sudo pip3 install scipy
+sudo pip3 install scikit-learn
 
 ipyleaflet
 sudo pip install ipyleaflet
