@@ -16,7 +16,7 @@ from sklearn.externals import joblib
 
 location = 'hyytiaelae'
 start_day = date(2010, 1, 1)
-end_day = date(2013, 12, 31)
+end_day = date(2015, 12, 31)
 current_day = start_day
 example_day = date(2013, 4, 4)
 cls_period = '1996-2016'
@@ -44,6 +44,11 @@ if __name__ == "__main__":
 
         date_num = int(date2datenum(current_day_str))
         cls_data_day = cls_data.loc[cls_data['Matlab Datenum'] == date_num]
+
+        if len(cls_data_day) == 0:
+            print('Skip {} (no classification)'.format(current_day_str))
+            current_day = current_day + timedelta(days=1)
+            continue
 
         if cls_data_day.iloc[0]['Class Ia'] == 1:
             label = 'Event'
@@ -88,6 +93,9 @@ if __name__ == "__main__":
         current_day = current_day + timedelta(days=1)
 
     print('Number of samples: {}'.format(len(X)))
+
+    if len(X) == 0:
+        exit(0)
 
     scaler = MinMaxScaler()
     scaler.fit(X)

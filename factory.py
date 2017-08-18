@@ -14,10 +14,7 @@ mlp_detection = joblib.load('learning/models/event-detection.pkl')
 def assess(data):
     vector = feature_vector(data)
     pre_detection = mlp_detection.predict(np.array(vector).reshape(1, -1))
-    if pre_detection[0] == 'Event':
-        print('An event occurred on this day and location')
-    else:
-        print('No event occurred on this day and location')
+    print(pre_detection)
 
 
 def record(event):

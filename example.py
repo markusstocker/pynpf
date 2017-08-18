@@ -16,7 +16,7 @@ import time
 
 
 #print(datenum2date(736711))
-#print(date2datenum('2013-04-04'))
+print(date2datenum('2016-01-01'))
 
 # Example 1
 date = '2013-04-04'
