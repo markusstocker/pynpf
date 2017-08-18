@@ -1,6 +1,7 @@
 import requests
 import csv
 import io
+import pandas as pd
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
 from pytz import timezone
@@ -49,4 +50,4 @@ def fetchdata(date, place):
     url = 'http://avaa.tdata.fi/smear-services/smeardata.jsp?' + urlencode(query)
     response = requests.post(url)
 
-    return list(csv.reader(io.StringIO(response.text)))
+    return pd.read_csv(io.StringIO(response.text))

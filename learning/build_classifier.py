@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import os.path
 from datetime import date, timedelta
-from learning.featurizer import featurize
+from learning.featurizer import feature_vector
 from smear.datareader import readdata
 from smear.dataplotter import plotdata
 from smear.utils import date2datenum, datenum2date
@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.externals import joblib
 
 location = 'hyytiaelae'
 start_day = date(2010, 1, 1)
@@ -27,34 +28,6 @@ X_example = []
 labels = ['Class Ia', 'Class Ib', 'Class II']
 labels = ['Event', 'Non Event']
 
-
-def svd_vector(data):
-    svd = TruncatedSVD(n_components=1)
-    vector = svd.fit_transform(data.ix[:, 6:].transpose())
-    return [item for sublist in vector for item in sublist]
-
-
-def feature_vector(data):
-#    data_day = data.ix[:, 6:].as_matrix()
-#    data_daytime = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:].as_matrix()
-    data_day_new = data.ix[:, 6:16].as_matrix()  # Number concentration of particles with diameter <= 7nm (13) 15nm (20)
-    data_daytime_new = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:20].as_matrix()
-    data_nighttime_new = data.loc[(data['Hour'] < 9) | (data['Hour'] > 15)].ix[:, 6:20].as_matrix()
-    ret = [
-        np.sum(data_day_new),
-        np.max(data_day_new),
-        np.min(data_day_new),
-        np.var(data_day_new),
-#        np.sum(data_nighttime_new),
-#        np.max(data_nighttime_new),
-#        np.min(data_nighttime_new),
-#        np.var(data_nighttime_new),
-#        np.sum(data_daytime_new) - np.sum(data_nighttime_new),
-#        np.max(data_daytime_new) - np.max(data_nighttime_new),
-#        np.min(data_daytime_new) - np.min(data_nighttime_new),
-#        np.var(data_daytime_new) - np.var(data_nighttime_new)
-    ]
-    return ret
 
 if __name__ == "__main__":
     cls_data_file = '{}/classification/{}_dmps_event_classification_{}.txt'.format(dir, location, cls_period)
@@ -124,6 +97,8 @@ if __name__ == "__main__":
 
     mlp = MLPClassifier(solver='lbfgs', hidden_layer_sizes=[2], max_iter=2000, activation='logistic')
     mlp.fit(X_train, Y_train)
+
+    joblib.dump(mlp, 'models/event-detection.pkl')
 
     Y_pred = mlp.predict(X_test)
 

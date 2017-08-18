@@ -4,14 +4,8 @@ from matplotlib import pyplot as plt
 
 
 def plotdata(data):
-    if not data:
-        return
-
-    d = copy.deepcopy(data)
-
-    del d[0] # Remove header
-    for row in d: # Remove datetime data
-        del row[0:6]
+    d = data.copy(deep=True)
+    d = d.ix[:, 6:].as_matrix()
     m = len(d)
     n = len(d[0])
     x = range(0, m)

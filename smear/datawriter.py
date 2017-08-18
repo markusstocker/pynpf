@@ -1,7 +1,5 @@
-import csv
+import pandas as pd
 
 
 def writedata(data, file):
-    with open(file, 'w') as f:
-        w = csv.writer(f)
-        w.writerows(data)
+    data.to_csv(file, index=False, encoding='utf-8')

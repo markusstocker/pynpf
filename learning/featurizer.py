@@ -1,57 +1,33 @@
+import numpy as np
 from datetime import datetime
 from sklearn.decomposition import TruncatedSVD
 
 
-def featurize(data):
-    h = data[0]  # header
-    d = data[1:len(data)]  # measurements
-    t = []  # times
-    m = []  # matrix
-
-    for r in d:
-        t.append(datetime(int(r[0]), int(r[1]), int(r[2]), int(r[3]), int(r[4]), int(r[5])))
-        del r[0:6]  # remove datetime
-        r = [float(i) for i in r]  # convert data matrix to numbers
-        m.append(r)
-
+def svd_vector(data):
     svd = TruncatedSVD(n_components=1)
-
-#    dtidx = daytimeindex(t)
-#    dtot = total(m)
-#    dttot = total(m[dtidx[0]:dtidx[1]])
-#    ntot = total(newparticles(m))
-#    dtntot = total(newparticles(m[dtidx[0]:dtidx[1]]))
-
-    # Transposes the matrix first
-    return svd.fit_transform(list(map(list, zip(*m))))
+    vector = svd.fit_transform(data.ix[:, 6:].transpose())
+    return [item for sublist in vector for item in sublist]
 
 
-# Computes the start and end index of daytime (6 am - 6 pm)
-def daytimeindex(t):
-    sidx = -1
-    eidx = -1
-    idx = -1
-
-    for dt in t:
-        idx = idx + 1
-        h = dt.time().hour
-        if sidx == -1 and h >= 6:
-            sidx = idx
-        if eidx == -1 and h >= 18:
-            eidx = idx
-
-    return [sidx, eidx]
-
-
-def total(m):
-    return sum([sum(i) for i in zip(*m)])
-
-
-# Extracts the data for particles < 10 nm
-def newparticles(m):
-    n = []
-    # Take the first 10 columns
-    for r in m:
-        n.append(r[0:10])
-    return n
+def feature_vector(data):
+#    data_day = data.ix[:, 6:].as_matrix()
+#    data_daytime = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:].as_matrix()
+    data_day_new = data.ix[:, 6:16].as_matrix()  # Number concentration of particles with diameter <= 7nm (13) 15nm (20)
+    data_daytime_new = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:20].as_matrix()
+    data_nighttime_new = data.loc[(data['Hour'] < 9) | (data['Hour'] > 15)].ix[:, 6:20].as_matrix()
+    ret = [
+        np.sum(data_day_new),
+        np.max(data_day_new),
+        np.min(data_day_new),
+        np.var(data_day_new),
+        np.sum(data_nighttime_new),
+        np.max(data_nighttime_new),
+        np.min(data_nighttime_new),
+        np.var(data_nighttime_new),
+        np.sum(data_daytime_new) - np.sum(data_nighttime_new),
+        np.max(data_daytime_new) - np.max(data_nighttime_new),
+        np.min(data_daytime_new) - np.min(data_nighttime_new),
+        np.var(data_daytime_new) - np.var(data_nighttime_new)
+    ]
+    return ret
 

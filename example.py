@@ -1,5 +1,7 @@
 from smear.datafetcher import fetchdata
 from smear.dataplotter import plotdata
+from smear.datareader import readdata
+from smear.datawriter import writedata
 from entity.event import Event
 from store.store import Store
 from processing.visualization import smap
@@ -8,12 +10,12 @@ from processing.description import describe
 from datetime import datetime, timedelta
 from smear.utils import date2datenum
 from entity.point import Point
-from factory import record, event, events, places, classes
+from factory import assess, record, event, events, places, classes
 from smear.utils import date2datenum, datenum2date
 import time
 
 
-print(datenum2date(736711))
+#print(datenum2date(736711))
 #print(date2datenum('2013-04-04'))
 
 # Example 1
@@ -38,6 +40,11 @@ classification = 'Class Ia'
 #classification = 'Class Ia'
 
 #plotdata(fetchdata(date, place))
+
+#writedata(fetchdata(date, place), '/tmp/test.csv')
+#plotdata(readdata('/tmp/test.csv'))
+
+#assess(fetchdata(date, place))
 
 #record(event(date, place, beginning, end, classification))
 

@@ -1,7 +1,5 @@
-import csv
+import pandas as pd
 
 
 def readdata(file):
-    with open(file, 'r') as f:
-        r = csv.reader(f)
-        return list(r)
+    return pd.read_csv(file)
