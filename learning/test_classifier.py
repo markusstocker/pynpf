@@ -20,7 +20,7 @@ dir = '/home/ms/workspace-pynpf/pynpf-data'
 X = []
 Y = []
 
-mlp = joblib.load('models/event-detection.pkl')
+mlp = joblib.load('models/mlp-event-detection.pkl')
 
 if __name__ == "__main__":
     cls_data_file = '{}/classification/{}_dmps_event_classification_{}.txt'.format(dir, location, cls_period)
