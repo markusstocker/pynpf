@@ -8,12 +8,15 @@ from sklearn.externals import joblib
 
 
 store = Store()
-mlp_detection = joblib.load('learning/models/event-detection.pkl')
+mlp_detection = joblib.load('learning/models/mlp-event-detection.pkl')
+scaler_detection = joblib.load('learning/models/scaler-event-detection.pkl')
 
 
 def assess(data):
     vector = feature_vector(data)
-    pre_detection = mlp_detection.predict(np.array(vector).reshape(1, -1))
+    vector = np.array(vector).reshape(1, -1)
+    vector = scaler_detection.transform(vector)
+    pre_detection = mlp_detection.predict(vector)
     print(pre_detection)
 
 

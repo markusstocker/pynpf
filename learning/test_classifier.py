@@ -1,33 +1,26 @@
-import csv
 import pandas as pd
-import numpy as np
 import os.path
 from datetime import date, timedelta
 from learning.featurizer import feature_vector
-from smear.datareader import readdata
-from smear.dataplotter import plotdata
-from smear.utils import date2datenum, datenum2date
+from smear.utils import date2datenum
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.externals import joblib
 
 location = 'hyytiaelae'
-start_day = date(2010, 1, 1)
-end_day = date(2014, 12, 31)
-current_day = start_day
-example_day = date(2013, 4, 4)
 cls_period = '1996-2016'
+start_day = date(2015, 1, 1)
+end_day = date(2015, 12, 31)
+current_day = start_day
+labels = ['Event', 'Non Event']
 dir = '/home/ms/workspace-pynpf/pynpf-data'
 
 X = []
 Y = []
-X_example = []
-labels = ['Class Ia', 'Class Ib', 'Class II']
-labels = ['Event', 'Non Event']
 
+mlp = joblib.load('models/event-detection.pkl')
 
 if __name__ == "__main__":
     cls_data_file = '{}/classification/{}_dmps_event_classification_{}.txt'.format(dir, location, cls_period)
@@ -84,9 +77,6 @@ if __name__ == "__main__":
 
         vector = feature_vector(obs_data)
 
-        if current_day == example_day:
-            X_example = vector
-
         X.append(vector)
         Y.append(label)
 
@@ -99,24 +89,12 @@ if __name__ == "__main__":
 
     scaler = MinMaxScaler()
     scaler.fit(X)
-
-    joblib.dump(scaler, 'models/scaler-event-detection.pkl')
-
     X = scaler.transform(X)
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=100)
-
-    mlp = MLPClassifier(solver='lbfgs', hidden_layer_sizes=[2], max_iter=2000, activation='logistic')
-    mlp.fit(X_train, Y_train)
-
-    joblib.dump(mlp, 'models/mlp-event-detection.pkl')
 
     Y_pred = mlp.predict(X_test)
 
     print(accuracy_score(Y_test, Y_pred) * 100)
     print(confusion_matrix(Y_test, Y_pred, labels=labels))
     print(classification_report(Y_test, Y_pred, target_names=labels))
-
-    print(mlp.predict([X_example]))
-
-
