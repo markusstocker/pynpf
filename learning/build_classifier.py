@@ -18,13 +18,11 @@ location = 'hyytiaelae'
 start_day = date(2010, 1, 1)
 end_day = date(2014, 12, 31)
 current_day = start_day
-example_day = date(2013, 4, 4)
 cls_period = '1996-2016'
 dir = '/home/ms/workspace-pynpf/pynpf-data'
 
 X = []
 Y = []
-X_example = []
 labels = ['Class Ia', 'Class Ib', 'Class II']
 labels = ['Event', 'Non Event']
 
@@ -84,9 +82,6 @@ if __name__ == "__main__":
 
         vector = feature_vector(obs_data)
 
-        if current_day == example_day:
-            X_example = vector
-
         X.append(vector)
         Y.append(label)
 
@@ -116,7 +111,5 @@ if __name__ == "__main__":
     print(accuracy_score(Y_test, Y_pred) * 100)
     print(confusion_matrix(Y_test, Y_pred, labels=labels))
     print(classification_report(Y_test, Y_pred, target_names=labels))
-
-    print(mlp.predict([X_example]))
 
 
