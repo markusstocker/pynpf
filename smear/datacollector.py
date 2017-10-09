@@ -6,8 +6,8 @@ from datetime import date, timedelta
 from time import sleep
 
 
-start_day = date(2016, 1, 1)
-end_day = date(2016, 12, 31)
+start_day = date(2007, 1, 1)
+end_day = date(2009, 12, 31)
 current_day = start_day
 
 place = 'Hyytiälä' # Hyytiälä, Puijo, Värriö

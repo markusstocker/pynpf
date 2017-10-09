@@ -12,7 +12,8 @@ def svd_vector(data):
 def feature_vector(data):
 #    data_day = data.ix[:, 6:].as_matrix()
 #    data_daytime = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:].as_matrix()
-    data_day_new = data.ix[:, 6:16].as_matrix()  # Number concentration of particles with diameter <= 7nm (13) 15nm (20)
+# Number concentration of particles with diameter <= 7 nm (13), 15 nm (20), 25 nm (24)
+    data_day_new = data.ix[:, 6:20].as_matrix()
     data_daytime_new = data.loc[(data['Hour'] >= 9) & (data['Hour'] <= 15)].ix[:, 6:20].as_matrix()
     data_nighttime_new = data.loc[(data['Hour'] < 9) | (data['Hour'] > 15)].ix[:, 6:20].as_matrix()
     ret = [

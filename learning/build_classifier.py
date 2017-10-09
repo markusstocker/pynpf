@@ -8,6 +8,7 @@ from smear.datareader import readdata
 from smear.dataplotter import plotdata
 from smear.utils import date2datenum, datenum2date
 from sklearn.neural_network import MLPClassifier
+from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.decomposition import TruncatedSVD
@@ -15,7 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.externals import joblib
 
 location = 'hyytiaelae'
-start_day = date(2010, 1, 1)
+start_day = date(2007, 1, 1)
 end_day = date(2014, 12, 31)
 current_day = start_day
 cls_period = '1996-2016'
@@ -23,8 +24,10 @@ dir = '/home/ms/workspace-pynpf/pynpf-data'
 
 X = []
 Y = []
-labels = ['Class Ia', 'Class Ib', 'Class II']
+#labels = ['Class Ia', 'Class Ib', 'Class II', 'Non Event']
+#label_count = {'Class Ia': 0, 'Class Ib': 0, 'Class II': 0, 'Non Event': 0}
 labels = ['Event', 'Non Event']
+label_count = {'Event': 0, 'Non Event': 0}
 
 
 if __name__ == "__main__":
@@ -48,19 +51,6 @@ if __name__ == "__main__":
             current_day = current_day + timedelta(days=1)
             continue
 
-        if cls_data_day.iloc[0]['Class Ia'] == 1:
-            label = 'Event'
-        elif cls_data_day.iloc[0]['Class Ib'] == 1:
-            label = 'Event'
-        elif cls_data_day.iloc[0]['Class II'] == 1:
-            label = 'Event'
-        elif cls_data_day.iloc[0]['Non Event'] == 1:
-            label = 'Non Event'
-        else:
-            print('Skip {} (unsupported class)'.format(current_day_str))
-            current_day = current_day + timedelta(days=1)
-            continue
-
         obs_data_file = '{}/observational/{}/{}_{}.csv'.format(dir, location, location, current_day_str)
 
         if not os.path.isfile(obs_data_file):
@@ -80,6 +70,26 @@ if __name__ == "__main__":
             current_day = current_day + timedelta(days=1)
             continue
 
+        if cls_data_day.iloc[0]['Class Ia'] == 1:
+            label = 'Event'
+        elif cls_data_day.iloc[0]['Class Ib'] == 1:
+            label = 'Event'
+        elif cls_data_day.iloc[0]['Class II'] == 1:
+            label = 'Event'
+        elif cls_data_day.iloc[0]['Non Event'] == 1:
+            label = 'Non Event'
+        else:
+            print('Skip {} (unsupported class)'.format(current_day_str))
+            current_day = current_day + timedelta(days=1)
+            continue
+
+#        if label == 'Non Event' and label_count['Non Event'] > 682:
+#            print('Skip {} (excessive non events)'.format(current_day_str))
+#            current_day = current_day + timedelta(days=1)
+#            continue
+
+        label_count[label] = label_count[label] + 1
+
         vector = feature_vector(obs_data)
 
         X.append(vector)
@@ -87,7 +97,8 @@ if __name__ == "__main__":
 
         current_day = current_day + timedelta(days=1)
 
-    print('Number of samples: {}'.format(len(X)))
+    print('Number of samples {} and labels {}'.format(len(X), len(Y)))
+    print(label_count)
 
     if len(X) == 0:
         exit(0)
@@ -99,17 +110,9 @@ if __name__ == "__main__":
 
     X = scaler.transform(X)
 
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=100)
+    classifier = MLPClassifier(solver='lbfgs', hidden_layer_sizes=[2], max_iter=2000, activation='logistic')
+#    classifier = SVC()
 
-    mlp = MLPClassifier(solver='lbfgs', hidden_layer_sizes=[2], max_iter=2000, activation='logistic')
-    mlp.fit(X_train, Y_train)
+    classifier.fit(X, Y)
 
-    joblib.dump(mlp, 'models/mlp-event-detection.pkl')
-
-    Y_pred = mlp.predict(X_test)
-
-    print(accuracy_score(Y_test, Y_pred) * 100)
-    print(confusion_matrix(Y_test, Y_pred, labels=labels))
-    print(classification_report(Y_test, Y_pred, target_names=labels))
-
-
+    joblib.dump(classifier, 'models/classifier-event-detection.pkl')
