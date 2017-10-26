@@ -20,14 +20,19 @@ jupyter nbextension enable --py --sys-prefix widgetsnbextension
 git clone https://github.com/markusstocker/pynpf.git /opt/pynpf
 git clone https://markusstocker@bitbucket.org/markusstocker/pynpf-data.git /opt/pynpf-data
 /opt/apache-jena-fuseki-2.5.0/run/shiro.ini: /$/** = anon
+jupyter notebook --generate-config
+jupyter notebook password
 
 docker images
 docker ps -a
 docker start CONTAINER
 docker exec -it CONTAINER bash
-jupyter notebook --allow-root --ip 0.0.0.0 --no-browser /opt/pynpf
+jupyter notebook --allow-root --ip 0.0.0.0 --no-browser /opt/pynpf &> /dev/null &
 export JAVA_HOME=/opt/jdk1.8.0_74
-/opt/apache-jena-fuseki-2.5.0/fuseki-server
+/opt/apache-jena-fuseki-2.5.0/fuseki-server &> /dev/null &
+
+jupyter notebook list
+jupyter notebook stop 8888
 
 docker stop CONTAINER
 docker commit CONTAINER IMAGE  
