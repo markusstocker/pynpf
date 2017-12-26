@@ -6,7 +6,7 @@ conda env remove --name pynpf
 conda env list
 
 source activate pynpf
-source deactivate pynp
+source deactivate pynpf
 
 conda install matplotlib
 conda install pandas

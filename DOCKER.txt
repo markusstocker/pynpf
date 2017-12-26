@@ -16,6 +16,7 @@ sudo docker stop fuseki
 sudo docker rm fuseki
 sudo docker rmi stain/jena-fuseki
 
+==== DEPRECATED ====
 
 docker pull ubuntu
 docker run -p 3030:3030 -p 8888:8888 -it ubuntu /bin/bash
