@@ -1,12 +1,38 @@
+## Anaconda
+
+conda create --name pynpf python
+conda env remove --name pynpf
+
+conda env list
+
+source activate pynpf
+source deactivate pynp
+
+conda install matplotlib
+conda install pandas
+conda install requests
+conda install basemap
+conda install scipy
+pip install rdflib
+pip install geomet
+pip install sklearn
+pip install ipyleaflet
+
+
 ## Requirements
 
+sudo apt install python3-tk
 sudo apt-get install python3-mpltoolkits.basemap
+sudo pip3 install setuptools --upgrade
 sudo pip3 install rdflib
 sudo pip3 install geomet
 sudo pip3 install rdflib-jsonld
 sudo pip3 install pandas
 sudo pip3 install scipy
 sudo pip3 install scikit-learn
+sudo pip3 install matplotlib
+sudo pip3 install requests
+sudo pip3 install six
 
 ipyleaflet
 sudo pip install ipyleaflet

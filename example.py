@@ -12,18 +12,18 @@ from smear.utils import date2datenum
 from entity.point import Point
 from factory import assess, record, event, events, places, classes
 from smear.utils import date2datenum, datenum2date
-import time
+#import time
 
 
-#print(datenum2date(736711))
+print(datenum2date(734545))
 #print(date2datenum('2016-01-01'))
 
 # Example 1
-date = '2013-04-04'
-place = 'Hyytiälä'
-beginning = '11:00'
-end = '19:00'
-classification = 'Class Ia'
+#date = '2013-04-04'
+#place = 'Hyytiälä'
+#beginning = '11:00'
+#end = '19:00'
+#classification = 'Class Ia'
 
 # Example 2
 #date = '2015-03-10'

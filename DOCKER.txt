@@ -1,3 +1,22 @@
+sudo docker build -t jupyterhub . 
+sudo docker run --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=admin -d stain/jena-fuseki
+sudo docker run --name jupyterhub -p 8000:8000 --net="host" -d jupyterhub jupyterhub
+
+sudo docker start fuseki
+sudo docker start jupyterhub
+
+sudo docker exec -it jupyterhub bash
+
+sudo docker stop jupyterhub
+sudo docker rm jupyterhub
+sudo docker rmi jupyterhub
+sudo docker rmi jupyterhub/jupyterhub
+
+sudo docker stop fuseki
+sudo docker rm fuseki
+sudo docker rmi stain/jena-fuseki
+
+
 docker pull ubuntu
 docker run -p 3030:3030 -p 8888:8888 -it ubuntu /bin/bash
 apt-get update
