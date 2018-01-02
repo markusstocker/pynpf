@@ -9,7 +9,6 @@ from pynpf.entity.classification import Classification
 
 class Store:
 
-    query_base_path = 'pynpf/query/resources'
     places = dict()
     classifications = dict()
 
@@ -163,6 +162,43 @@ WHERE
   FILTER (?placeName = "PLACE_NAME"^^xsd:string)
 }'''
 
+    events_filter_none_query = '''PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?eventUri ?timeUri ?beginningUri ?beginningDateTime
+  ?endUri ?endDateTime ?placeUri ?placeName ?placeCountryCode ?placeLocationMap
+  ?spaceUri ?spacePoint ?classificationUri ?classificationLabel
+WHERE
+{
+  ?eventUri rdf:type lode:Event .
+  ?eventUri lode:atTime ?timeUri .
+  ?timeUri rdf:type time:Interval .
+  ?timeUri time:hasBeginning ?beginningUri .
+  ?beginningUri rdf:type time:Instant .
+  ?beginningUri time:inXSDDateTime ?beginningDateTime .
+  ?timeUri time:hasEnd ?endUri .
+  ?endUri rdf:type time:Instant .
+  ?endUri time:inXSDDateTime ?endDateTime .
+  ?eventUri lode:atPlace ?placeUri .
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?eventUri lode:inSpace ?spaceUri .
+  ?spaceUri rdf:type sf:Point .
+  ?spaceUri geosparql:asWKT ?spacePoint .
+  ?eventUri smear:hasClassification ?classificationUri .
+  ?classificationUri rdfs:label ?classificationLabel .
+}'''
+
     def __init__(self, endpoint='http://localhost:3030', dataset='pynpf'):
         self.endpoint = endpoint
         self.dataset = dataset
@@ -237,8 +273,7 @@ WHERE
             return self.eval_events(self.query(self.events_filter_place_query
                                                .replace('PLACE_NAME', place.name)))
 
-        return self.eval_events(self.query(open('{}/{}'.format(self.query_base_path, 'events-filter-none.rq'))
-                                           .read()))
+        return self.eval_events(self.query(self.events_filter_none_query))
 
     @staticmethod
     def eval_events(response):
