@@ -64,7 +64,4 @@ export PYTHONPATH=${PYTHONPATH}:/opt/pynpf
 build_classifier.py: dir = '/opt/pynpf-data'
 test_classifer.py: dir = '/opt/pynpf-data'
 
-http://seprojects.marum.de:8888/?token=02c6cbada19ebb4f1dbd7e9de197d9e63c5dd62276664d09
-http://seprojects.marum.de:8888/notebooks/example.ipynb
-
 
