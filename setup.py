@@ -23,7 +23,7 @@ setup(
     author_email='markus.stocker@gmail.com',
     license='GPL',
     classifiers=[
-        'Programming Language :: Python :: 3'
+        'Programming Language :: Python :: 3.6'
     ],
     packages=find_packages(),
     package_data={'pynpf': ['query/resources/*.rq', 'learning/models/*.pkl']},

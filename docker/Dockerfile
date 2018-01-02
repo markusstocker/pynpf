@@ -11,6 +11,8 @@ RUN git clone https://github.com/markusstocker/pynpf.git /tmp/pynpf
 WORKDIR /tmp/pynpf
 RUN conda build conda.recipe
 RUN conda install --use-local pynpf
-RUN cp notebook/classification.ipynb /home/npf
+RUN git clone https://github.com/markusstocker/pynpf-notebooks.git /tmp/pynpf-notebooks
+WORKDIR /tmp/pynpf-notebooks
+RUN cp *.ipynb /home/npf
+RUN chown -R npf.npf /home/npf/*.ipynb
 WORKDIR /srv/jupyterhub/
-RUN chown -R npf.npf /home/npf/classification.ipynb
