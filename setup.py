@@ -26,6 +26,7 @@ setup(
         'Programming Language :: Python :: 3'
     ],
     packages=find_packages(),
+    package_data={'pynpf': ['query/resources/*.rq', 'learning/models/*.pkl']},
     include_package_data=True,
     entry_points={},
     install_requires=install_requires,
