@@ -1,13 +1,15 @@
+import site
 import numpy as np
 from pynpf.store.store import Store
 from pynpf.entity.event import Event
 from pynpf.learning.featurizer import feature_vector
 from sklearn.externals import joblib
 
+site_packages = site.getsitepackages()[0]
 
 store = Store()
-classifier_detection = joblib.load('pynpf/learning/models/classifier-event-detection.pkl')
-scaler_detection = joblib.load('pynpf/learning/models/scaler-event-detection.pkl')
+classifier_detection = joblib.load('{}/pynpf/learning/models/classifier-event-detection.pkl'.format(site_packages))
+scaler_detection = joblib.load('{}/pynpf/learning/models/scaler-event-detection.pkl'.format(site_packages))
 
 
 def assess(data):

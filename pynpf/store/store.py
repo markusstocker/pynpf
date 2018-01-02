@@ -1,3 +1,4 @@
+import site
 import requests
 import dateutil.parser
 from datetime import datetime
@@ -9,7 +10,8 @@ from pynpf.entity.classification import Classification
 
 class Store:
 
-    query_base_path = 'pynpf/query/resources'
+    site_packages = site.getsitepackages()[0]
+    query_base_path = '{}/pynpf/query/resources'.format(site_packages)
     places = dict()
     classifications = dict()
 
