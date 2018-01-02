@@ -1,0 +1,27 @@
+package:
+  name: pynpf
+  version: "0.1"
+
+source:
+  path: ..
+
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+
+about:
+  home: https://github.com/markusstocker/pynpf
+  license: "GPL 3.0"
+  license_file: "LICENSE.txt"

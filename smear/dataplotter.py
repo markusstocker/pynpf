@@ -14,6 +14,7 @@ def plotdata(data):
     z = np.transpose(np.array([row[1:] for row in d]).astype(np.float))
     plt.figure(figsize=(10, 5), dpi=100)
     plt.pcolormesh(x, y, z)
+    plt.plot((0, x.max()), (y.max()/2, y.max()/2), "r-")
     plt.colorbar()
     plt.xlim(xmax=m-1)
     x_ticks = np.arange(x.min(), x.max(), 6)

@@ -8,6 +8,7 @@ conda env list
 source activate pynpf
 source deactivate pynpf
 
+conda install conda-build
 conda install matplotlib
 conda install pandas
 conda install requests
@@ -18,6 +19,8 @@ pip install geomet
 pip install sklearn
 pip install ipyleaflet
 
+conda build conda.recipe
+conda install --use-local pynpf
 
 ## Requirements
 
