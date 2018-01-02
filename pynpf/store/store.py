@@ -1,16 +1,15 @@
 import requests
 import dateutil.parser
 from datetime import datetime
-from entity.event import Event
-from entity.instant import Instant
-from entity.place import Place
-from vocab import SmartSMEAR
-from entity.classification import Classification
+from pynpf.entity.event import Event
+from pynpf.entity.instant import Instant
+from pynpf.entity.place import Place
+from pynpf.entity.classification import Classification
 
 
 class Store:
 
-    query_base_path = 'query/resources'
+    query_base_path = 'pynpf/query/resources'
     places = dict()
     classifications = dict()
 

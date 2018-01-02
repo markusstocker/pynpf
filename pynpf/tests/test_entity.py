@@ -1,6 +1,6 @@
 import unittest
 from rdflib import URIRef
-from entity.entity import Entity
+from pynpf.entity.entity import Entity
 
 
 class TestEntity(unittest.TestCase):

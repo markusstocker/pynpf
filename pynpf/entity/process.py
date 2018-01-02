@@ -1,11 +1,11 @@
 from hashlib import md5
-from rdflib import Graph, URIRef
+from rdflib import Graph
 from rdflib.namespace import RDF
-from entity.interval import Interval
-from entity.instant import Instant
-from entity.point import Point
-from entity.entity import Entity
-from vocab import ENVO, LODE, Base, SmartSMEAR
+from pynpf.entity.interval import Interval
+from pynpf.entity.instant import Instant
+from pynpf.entity.point import Point
+from pynpf.entity.entity import Entity
+from pynpf.vocab import ENVO, LODE, Base, SmartSMEAR
 
 
 class Process(Entity):

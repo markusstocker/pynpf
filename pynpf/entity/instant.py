@@ -3,9 +3,9 @@ from rdflib.namespace import RDF, XSD
 from rdflib import Graph, Literal
 from pytz import timezone
 from datetime import datetime
-from vocab import Time
-from vocab import Base
-from entity.entity import Entity
+from pynpf.vocab import Time
+from pynpf.vocab import Base
+from pynpf.entity.entity import Entity
 
 
 class Instant(Entity):

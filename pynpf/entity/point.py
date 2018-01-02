@@ -1,8 +1,9 @@
 from hashlib import md5
-from rdflib import Graph, URIRef, Literal
+from rdflib import Graph, Literal
 from rdflib.namespace import RDF
-from entity.entity import Entity
-from vocab import Time, Base, SimpleFeatures, GeoSPARQL, Geo
+from pynpf.entity.entity import Entity
+from pynpf.vocab import Base, SimpleFeatures, Geo
+from pynpf.vocab import GeoSPARQL
 
 
 class Point(Entity):

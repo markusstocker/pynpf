@@ -1,13 +1,6 @@
 FROM jupyterhub/jupyterhub:latest
 COPY jupyterhub_config.py /srv/jupyterhub/
-RUN conda install conda-build
-RUN conda install notebook
-RUN conda install pandas
-RUN conda install requests
-RUN conda install matplotlib
-RUN conda install basemap
-RUN conda install scipy
-RUN conda install -c conda-forge ipywidgets
+RUN conda install -c conda-forge conda-build notebook pandas requests matplotlib basemap scipy ipywidgets
 RUN pip install rdflib
 RUN pip install sklearn
 RUN pip install geomet

@@ -1,7 +1,7 @@
 from rdflib import Graph, Literal
-from vocab import SmartSMEAR
+from pynpf.vocab import SmartSMEAR
 from rdflib.namespace import RDF, RDFS, XSD
-from entity.entity import Entity
+from pynpf.entity.entity import Entity
 
 
 class Classification(Entity):

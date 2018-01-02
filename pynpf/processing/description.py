@@ -1,6 +1,6 @@
 from rdflib import Graph
-from vocab import LODE, Base, SmartSMEAR, WGS84, Time, GeoSPARQL, GeoNames, SimpleFeatures, DUL
-from rdflib import Namespace
+from pynpf.vocab import LODE, SmartSMEAR, WGS84, Time, SimpleFeatures
+from pynpf.vocab import GeoSPARQL, GeoNames, DUL
 
 
 def describe(events, format='text'):

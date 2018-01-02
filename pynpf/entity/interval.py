@@ -1,8 +1,8 @@
 from hashlib import md5
-from rdflib import Graph, URIRef
-from rdflib.namespace import RDF, XSD
-from vocab import Time, Base
-from entity.entity import Entity
+from rdflib import Graph
+from rdflib.namespace import RDF
+from pynpf.vocab import Time, Base
+from pynpf.entity.entity import Entity
 
 
 class Interval(Entity):

@@ -1,5 +1,4 @@
 import requests
-import csv
 import io
 import pandas as pd
 from urllib.parse import urlencode

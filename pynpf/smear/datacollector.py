@@ -1,7 +1,5 @@
-from smear.datafetcher import fetchdata
-from smear.dataplotter import plotdata
-from smear.datawriter import writedata
-from smear.datareader import readdata
+from pynpf.smear.datafetcher import fetchdata
+from pynpf.smear.datawriter import writedata
 from datetime import date, timedelta
 from time import sleep
 

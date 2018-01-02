@@ -1,34 +1,27 @@
-import csv
 import pandas as pd
-import numpy as np
 import os.path
 from datetime import date, timedelta
-from learning.featurizer import feature_vector
-from smear.datareader import readdata
-from smear.dataplotter import plotdata
-from smear.utils import date2datenum, datenum2date
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
+from pynpf.learning.featurizer import feature_vector
+from pynpf.smear.utils import date2datenum
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.externals import joblib
 
 location = 'hyytiaelae'
-start_day = date(2007, 1, 1)
-end_day = date(2014, 12, 31)
-current_day = start_day
 cls_period = '1996-2016'
-dir = '/home/ms/workspace-pynpf/pynpf-data'
-
-X = []
-Y = []
+start_day = date(2015, 1, 1)
+end_day = date(2016, 12, 31)
+current_day = start_day
 #labels = ['Class Ia', 'Class Ib', 'Class II', 'Non Event']
 #label_count = {'Class Ia': 0, 'Class Ib': 0, 'Class II': 0, 'Non Event': 0}
 labels = ['Event', 'Non Event']
 label_count = {'Event': 0, 'Non Event': 0}
+dir = '/home/ms/workspace-pynpf/pynpf-data'
 
+X = []
+Y = []
+
+classifier = joblib.load('models/classifier-event-detection.pkl')
 
 if __name__ == "__main__":
     cls_data_file = '{}/classification/{}_dmps_event_classification_{}.txt'.format(dir, location, cls_period)
@@ -83,11 +76,6 @@ if __name__ == "__main__":
             current_day = current_day + timedelta(days=1)
             continue
 
-#        if label == 'Non Event' and label_count['Non Event'] > 682:
-#            print('Skip {} (excessive non events)'.format(current_day_str))
-#            current_day = current_day + timedelta(days=1)
-#            continue
-
         label_count[label] = label_count[label] + 1
 
         vector = feature_vector(obs_data)
@@ -95,9 +83,11 @@ if __name__ == "__main__":
         X.append(vector)
         Y.append(label)
 
+        print('Day {} label {}'.format(current_day_str, label))
+
         current_day = current_day + timedelta(days=1)
 
-    print('Number of samples {} and labels {}'.format(len(X), len(Y)))
+    print('Number of samples: {}'.format(len(X)))
     print(label_count)
 
     if len(X) == 0:
@@ -106,13 +96,9 @@ if __name__ == "__main__":
     scaler = MinMaxScaler()
     scaler.fit(X)
 
-    joblib.dump(scaler, 'models/scaler-event-detection.pkl')
-
     X = scaler.transform(X)
+    Y_pred = classifier.predict(X)
 
-    classifier = MLPClassifier(solver='lbfgs', hidden_layer_sizes=[2], max_iter=2000, activation='logistic')
-#    classifier = SVC()
-
-    classifier.fit(X, Y)
-
-    joblib.dump(classifier, 'models/classifier-event-detection.pkl')
+    print(accuracy_score(Y, Y_pred) * 100)
+    print(confusion_matrix(Y, Y_pred, labels=labels))
+    print(classification_report(Y, Y_pred, target_names=labels))

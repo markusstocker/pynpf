@@ -1,7 +1,8 @@
-from vocab import GeoNames, DUL, WGS84
+from pynpf.vocab import WGS84
+from pynpf.vocab import GeoNames, DUL
 from rdflib.namespace import RDF, XSD
 from rdflib import Graph, URIRef, Literal
-from entity.entity import Entity
+from pynpf.entity.entity import Entity
 
 
 class Place(Entity):

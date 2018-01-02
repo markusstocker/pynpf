@@ -1,15 +1,13 @@
-import pandas as pd
 import numpy as np
-from store.store import Store
-from entity.event import Event
-from learning.featurizer import feature_vector
-from sklearn.neural_network import MLPClassifier
+from pynpf.store.store import Store
+from pynpf.entity.event import Event
+from pynpf.learning.featurizer import feature_vector
 from sklearn.externals import joblib
 
 
 store = Store()
-classifier_detection = joblib.load('learning/models/classifier-event-detection.pkl')
-scaler_detection = joblib.load('learning/models/scaler-event-detection.pkl')
+classifier_detection = joblib.load('pynpf/learning/models/classifier-event-detection.pkl')
+scaler_detection = joblib.load('pynpf/learning/models/scaler-event-detection.pkl')
 
 
 def assess(data):
