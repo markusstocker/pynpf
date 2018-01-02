@@ -13,6 +13,156 @@ class Store:
     places = dict()
     classifications = dict()
 
+    places_query = '''PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+
+SELECT ?placeUri ?placeName ?placeCountryCode ?placeLocationMap ?placeLatitude ?placeLongitude
+WHERE
+{
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?placeUri wgs:lat ?placeLatitude .
+  ?placeUri wgs:long ?placeLongitude .
+}'''
+
+    classifications_query = '''PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?classificationUri ?classificationLabel ?classificationComment
+WHERE
+{
+  ?classificationUri rdf:type smear:Classification .
+  ?classificationUri rdfs:label ?classificationLabel .
+  ?classificationUri rdfs:comment ?classificationComment .
+}'''
+
+    events_filter_date_place_query = '''PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?eventUri ?timeUri ?beginningUri ?beginningDateTime
+  ?endUri ?endDateTime ?placeUri ?placeName ?placeCountryCode ?placeLocationMap
+  ?spaceUri ?spacePoint ?classificationUri ?classificationLabel
+WHERE
+{
+  ?eventUri rdf:type lode:Event .
+  ?eventUri lode:atTime ?timeUri .
+  ?timeUri rdf:type time:Interval .
+  ?timeUri time:hasBeginning ?beginningUri .
+  ?beginningUri rdf:type time:Instant .
+  ?beginningUri time:inXSDDateTime ?beginningDateTime .
+  ?timeUri time:hasEnd ?endUri .
+  ?endUri rdf:type time:Instant .
+  ?endUri time:inXSDDateTime ?endDateTime .
+  ?eventUri lode:atPlace ?placeUri .
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?eventUri lode:inSpace ?spaceUri .
+  ?spaceUri rdf:type sf:Point .
+  ?spaceUri geosparql:asWKT ?spacePoint .
+  ?eventUri smear:hasClassification ?classificationUri .
+  ?classificationUri rdfs:label ?classificationLabel .
+
+  FILTER (?placeName = "PLACE_NAME"^^xsd:string)
+  FILTER (year(?beginningDateTime) = YEAR
+    && month(?beginningDateTime) = MONTH
+    && day(?beginningDateTime) = DAY)
+}'''
+
+    events_filter_date_query = '''PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?eventUri ?intervalUri ?beginningUri ?beginningDateTime
+  ?endUri ?endDateTime ?placeUri ?placeName ?placeCountryCode ?placeLocationMap
+  ?spaceUri ?spacePoint ?classificationUri ?classificationLabel
+WHERE
+{
+  ?eventUri rdf:type lode:Event .
+  ?eventUri lode:atTime ?intervalUri .
+  ?intervalUri rdf:type time:Interval .
+  ?intervalUri time:hasBeginning ?beginningUri .
+  ?beginningUri rdf:type time:Instant .
+  ?beginningUri time:inXSDDateTime ?beginningDateTime .
+  ?intervalUri time:hasEnd ?endUri .
+  ?endUri rdf:type time:Instant .
+  ?endUri time:inXSDDateTime ?endDateTime .
+  ?eventUri lode:atPlace ?placeUri .
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?eventUri lode:inSpace ?spaceUri .
+  ?spaceUri rdf:type sf:Point .
+  ?spaceUri geosparql:asWKT ?spacePoint .
+  ?eventUri smear:hasClassification ?classificationUri .
+  ?classificationUri rdfs:label ?classificationLabel .
+
+  FILTER (year(?beginningDateTime) = YEAR
+    && month(?beginningDateTime) = MONTH
+    && day(?beginningDateTime) = DAY)
+}'''
+
+    events_filter_place_query = '''PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX smear: <http://avaa.tdata.fi/web/smart/smear/>
+
+SELECT ?eventUri ?timeUri ?beginningUri ?beginningDateTime
+  ?endUri ?endDateTime ?placeUri ?placeName ?placeCountryCode ?placeLocationMap
+  ?spaceUri ?spacePoint ?classificationUri ?classificationLabel
+WHERE
+{
+  ?eventUri rdf:type lode:Event .
+  ?eventUri lode:atTime ?timeUri .
+  ?timeUri rdf:type time:Interval .
+  ?timeUri time:hasBeginning ?beginningUri .
+  ?beginningUri rdf:type time:Instant .
+  ?beginningUri time:inXSDDateTime ?beginningDateTime .
+  ?timeUri time:hasEnd ?endUri .
+  ?endUri rdf:type time:Instant .
+  ?endUri time:inXSDDateTime ?endDateTime .
+  ?eventUri lode:atPlace ?placeUri .
+  ?placeUri rdf:type dul:Place .
+  ?placeUri gn:name ?placeName .
+  ?placeUri gn:countryCode ?placeCountryCode .
+  ?placeUri gn:locationMap ?placeLocationMap .
+  ?eventUri lode:inSpace ?spaceUri .
+  ?spaceUri rdf:type sf:Point .
+  ?spaceUri geosparql:asWKT ?spacePoint .
+  ?eventUri smear:hasClassification ?classificationUri .
+  ?classificationUri rdfs:label ?classificationLabel .
+
+  FILTER (?placeName = "PLACE_NAME"^^xsd:string)
+}'''
+
     def __init__(self, endpoint='http://localhost:3030', dataset='pynpf'):
         self.endpoint = endpoint
         self.dataset = dataset
@@ -30,7 +180,7 @@ class Store:
                              headers={'Accept': 'application/sparql-results+json'}).json()
 
     def load_places(self):
-        response = self.query(open('{}/{}'.format(self.query_base_path, 'places.rq')).read())
+        response = self.query(self.places_query)
 
         for binding in response['results']['bindings']:
             identifier = binding['placeUri']['value']
@@ -42,7 +192,7 @@ class Store:
             Store.places[name] = Place(identifier, name, country_code, location_map, latitude, longitude)
 
     def load_classifications(self):
-        response = self.query(open('{}/{}'.format(self.query_base_path, 'classifications.rq')).read())
+        response = self.query(self.classifications_query)
 
         for binding in response['results']['bindings']:
             identifier = binding['classificationUri']['value']
@@ -71,8 +221,7 @@ class Store:
     def get_events(self, date=None, place=None):
         if date is not None and place is not None:
             date = datetime.strptime(date, '%Y-%m-%d')
-            return self.eval_events(self.query(open('{}/{}'.format(self.query_base_path, 'events-filter-date-place.rq'))
-                                               .read()
+            return self.eval_events(self.query(self.events_filter_date_place_query
                                                .replace('PLACE_NAME', place.name)
                                                .replace('YEAR', str(date.year))
                                                .replace('MONTH', str(date.month))
@@ -80,15 +229,12 @@ class Store:
 
         if date is not None:
             date = datetime.strptime(date, '%Y-%m-%d')
-            return self.eval_events(self.query(open('{}/{}'.format(self.query_base_path, 'events-filter-date.rq'))
-                                               .read()
-                                               .replace('YEAR', str(date.year))
+            return self.eval_events(self.query(self.events_filter_date_query.replace('YEAR', str(date.year))
                                                .replace('MONTH', str(date.month))
                                                .replace('DAY', str(date.day))))
 
         if place is not None:
-            return self.eval_events(self.query(open('{}/{}'.format(self.query_base_path, 'events-filter-place.rq'))
-                                               .read()
+            return self.eval_events(self.query(self.events_filter_place_query
                                                .replace('PLACE_NAME', place.name)))
 
         return self.eval_events(self.query(open('{}/{}'.format(self.query_base_path, 'events-filter-none.rq'))
