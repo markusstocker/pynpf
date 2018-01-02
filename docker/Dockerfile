@@ -1,5 +1,5 @@
 FROM jupyterhub/jupyterhub:latest
-COPY jupyter/jupyterhub_config.py /srv/jupyterhub/
+COPY jupyterhub_config.py /srv/jupyterhub/
 RUN conda install -c conda-forge conda-build notebook pandas requests matplotlib basemap scipy ipywidgets
 RUN pip install rdflib sklearn geomet ipyleaflet
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
@@ -10,5 +10,5 @@ RUN git clone https://github.com/markusstocker/pynpf.git /tmp/pynpf
 WORKDIR /tmp/pynpf
 RUN conda build conda.recipe
 RUN conda install --use-local pynpf
-RUN cp jupyter/classification.ipynb /home/npf
+RUN cp notebook/classification.ipynb /home/npf
 RUN chown -R npf.npf /home/npf/classification.ipynb
