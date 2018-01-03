@@ -1,6 +1,4 @@
 from setuptools import setup, find_packages
-import os.path as op
-import sys
 
 install_requires = [
     'matplotlib',
