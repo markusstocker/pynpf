@@ -1,6 +1,7 @@
 source activate pynpf
 conda build recipe
 conda install --use-local pynpf
+conda remove pynpf
 source deactivate pynpf
 
 conda env list
