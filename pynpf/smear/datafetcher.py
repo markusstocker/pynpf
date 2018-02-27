@@ -46,7 +46,7 @@ def fetchdata(date, place):
 
     query = {'table': smear_table, 'quality': 'ANY', 'averaging': 'NONE', 'type': 'NONE',
              'from': str(time_from), 'to': str(time_to), 'variables': smear_variables}
-    url = 'http://avaa.tdata.fi/smear-services/smeardata.jsp?' + urlencode(query)
+    url = 'https://avaa.tdata.fi/smear-services/smeardata.jsp?' + urlencode(query)
     response = requests.post(url)
 
     return pd.read_csv(io.StringIO(response.text))

@@ -112,7 +112,7 @@ class Store:
 
         return events
 
-    def add_event(self, event):
+    def add_entity(self, entity):
         requests.post('{}/{}'.format(self.url, 'update'),
-                      data={'update': 'INSERT DATA { ' + event.graph().serialize(format='nt').decode("utf-8") + ' }'},
+                      data={'update': 'INSERT DATA { ' + entity.graph().serialize(format='nt').decode("utf-8") + ' }'},
                       headers={'Content-Type': 'application/x-www-form-urlencoded'})

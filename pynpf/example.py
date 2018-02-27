@@ -1,7 +1,9 @@
+from pynpf.smear.dataplotter import plotdata
+from pynpf.smear.datafetcher import fetchdata
 from pynpf.processing.visualization import imap
 from pynpf.processing.statistics import duration
 from pynpf.processing.description import describe
-from pynpf.factory import events
+from pynpf.factory import events, record
 from pynpf.smear.utils import datenum2date, date2datenum
 #import time
 
@@ -43,10 +45,11 @@ place = 'Hyytiälä'
 #smap(events())
 
 #start = time.time()
-#duration(events(), fun='avg')
+record(duration(events(), fun='avg'))
+
 #end = time.time()
 #print(end - start)
 
-describe(events(place=place), format='graph')
+#describe(events(place=place), format='graph')
 
 

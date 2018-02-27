@@ -20,9 +20,8 @@ def assess(data):
     print(pre_detection)
 
 
-def record(event):
-    store.add_event(event)
-
+def record(entity):
+    store.add_entity(entity)
 
 def event(date, place, beginning, end, classification):
     e = Event(date, places(place))
