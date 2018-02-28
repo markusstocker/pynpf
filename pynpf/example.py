@@ -9,22 +9,22 @@ from pynpf.smear.utils import datenum2date, date2datenum
 
 # https://github.com/RDFLib/rdflib/blob/master/rdflib/tools/rdf2dot.py
 
-#print(datenum2date(734545))
+#print(datenum2date(736487))
 #print(date2datenum('2013-04-04'))
 
 # Example 1
 #date = '2013-04-04'
-place = 'Hyytiälä'
+#place = 'Hyytiälä'
 #beginning = '11:00'
 #end = '19:00'
 #classification = 'Class Ia'
 
 # Example 2
-date = '2015-03-10'
-place = 'Värriö'
-beginning = '09:00'
-end = '15:00'
-classification = 'Class Ib'
+#date = '2015-03-10'
+#place = 'Värriö'
+#beginning = '09:00'
+#end = '15:00'
+#classification = 'Class Ib'
 
 # Example 3
 #date = '2011-06-05'
