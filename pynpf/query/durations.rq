@@ -1,0 +1,13 @@
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+select ?duration ?unit ?dataset where {
+  [] rdf:type obo:OBI_0000679 ; # average value
+     obo:OBI_0001938 [ # has scalar value specification: duration
+       rdf:type time:Duration ; # a value specification
+       time:numericDuration ?duration ;
+       time:unitType ?unit
+     ] ;
+     obo:IAO_0000136 ?dataset .
+}

@@ -23,6 +23,7 @@ def assess(data):
 def record(entity):
     store.add_entity(entity)
 
+
 def event(date, place, beginning, end, classification):
     e = Event(date, places(place))
     e.set_time(beginning, end)

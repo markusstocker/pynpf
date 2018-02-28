@@ -1,0 +1,17 @@
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX lode: <http://linkedevents.org/ontology/>
+PREFIX gn: <http://www.geonames.org/ontology#>
+
+select ?beginning ?end ?place where {
+  <> rdf:type obo:IAO_0000100 . # data set
+  <> obo:BFO_0000051 [ # has part
+       rdf:type lode:Event ;
+       lode:atTime [ 
+         time:hasBeginning [ time:inXSDDateTime ?beginning ] ;
+         time:hasEnd [ time:inXSDDateTime ?end ] 
+       ] ;
+       lode:atPlace [ gn:name ?place ]
+     ] . 
+}

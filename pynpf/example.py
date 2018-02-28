@@ -3,7 +3,7 @@ from pynpf.smear.datafetcher import fetchdata
 from pynpf.processing.visualization import imap
 from pynpf.processing.statistics import duration
 from pynpf.processing.description import describe
-from pynpf.factory import events, record
+from pynpf.factory import event, events, record
 from pynpf.smear.utils import datenum2date, date2datenum
 #import time
 
@@ -20,11 +20,11 @@ place = 'Hyytiälä'
 #classification = 'Class Ia'
 
 # Example 2
-#date = '2015-03-10'
-#place = 'Värriö'
-#beginning = '09:00'
-#end = '15:00'
-#classification = 'Class Ib'
+date = '2015-03-10'
+place = 'Värriö'
+beginning = '09:00'
+end = '15:00'
+classification = 'Class Ib'
 
 # Example 3
 #date = '2011-06-05'
@@ -45,7 +45,9 @@ place = 'Hyytiälä'
 #smap(events())
 
 #start = time.time()
-record(duration(events(), fun='avg'))
+#d = duration(events(), fun='avg', prov={'agent': 'https://orcid.org/0000-0001-5492-3212'})
+#print(d.value())
+#record(d)
 
 #end = time.time()
 #print(end - start)

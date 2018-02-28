@@ -1,0 +1,9 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+select ?entity1 ?entity2 where {
+  ?entity1 prov:wasDerivedFrom ?entity2 .
+  ?entity1 prov:wasGeneratedBy obo:OBI_0200170 . # averaging data transformation
+  ?entity1 prov:wasAttributedTo <https://orcid.org/0000-0001-5492-3212> .
+}

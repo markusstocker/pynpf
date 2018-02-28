@@ -1,8 +1,10 @@
 import datetime
+from pynpf.vocab import OBI
 from pynpf.entity.duration import Duration
+from pynpf.entity.averagevalue import AverageValue
 
 
-def duration(events, fun='avg'):
+def duration(events, fun='avg', prov={}):
     timedeltas = list()
 
     for event in events:
@@ -13,8 +15,9 @@ def duration(events, fun='avg'):
 
     if fun == 'avg':
         avg_timedelta = sum(timedeltas, datetime.timedelta(0)) / len(timedeltas)
-        print(avg_timedelta)
-        return Duration(avg_timedelta)
+        if 'activity' not in prov:
+            prov['activity'] = OBI.OBI_0200170
+        return AverageValue(Duration(avg_timedelta), events, prov)
     elif fun == 'max':
         print(max(timedeltas))
     elif fun == 'min':
