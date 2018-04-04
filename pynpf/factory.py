@@ -24,8 +24,8 @@ def record(entity):
     store.add_entity(entity)
 
 
-def event(date, place, beginning, end, classification):
-    e = Event(date, places(place))
+def event(date, place, beginning, end, classification, prov):
+    e = Event(date, places(place), prov)
     e.set_time(beginning, end)
     e.set_classification(classes(classification))
     return e

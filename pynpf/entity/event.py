@@ -1,17 +1,18 @@
 from hashlib import md5
-from rdflib import Graph
+from rdflib import Graph, URIRef
 from rdflib.namespace import RDF
 from pynpf.entity.interval import Interval
 from pynpf.entity.instant import Instant
 from pynpf.entity.point import Point
 from pynpf.entity.entity import Entity
-from pynpf.vocab import LODE, Base, SmartSMEAR
+from pynpf.vocab import LODE, Base, SmartSMEAR, PROV
 
 
 class Event(Entity):
-    def __init__(self, date=None, place=None):
+    def __init__(self, date=None, place=None, prov=None):
         self.date = date
         self.place = place
+        self.prov = prov
         self.time = None
         self.geometry = None
         self.classification = None
@@ -66,4 +67,34 @@ class Event(Entity):
             g.add((s, p, o))
         for s, p, o in self.classification.graph():
             g.add((s, p, o))
+
+        g.add((self.uri, RDF.type, PROV.Entity))
+
+        if self.prov is None:
+            return g
+
+        agent = None
+        activity = None
+        entity = None
+
+        if 'agent' in self.prov:
+            agent = URIRef(self.prov['agent'])
+            g.add((agent, RDF.type, PROV.Agent))
+            g.add((self.uri, PROV.wasAttributedTo, agent))
+
+        if 'entity' in self.prov:
+            entity = URIRef('file:{}'.format(self.prov['entity']))
+            g.add((entity, RDF.type, PROV.Entity))
+            g.add((self.uri, PROV.wasDerivedFrom, entity))
+
+        if 'activity' in self.prov:
+            activity = URIRef(self.prov['activity'])
+            g.add((activity, RDF.type, PROV.Activity))
+            g.add((self.uri, PROV.wasGeneratedBy, activity))
+
+        if agent is not None and activity is not None:
+            g.add((activity, PROV.wasAssociatedWith, agent))
+        if activity is not None and entity is not None:
+            g.add((activity, PROV.used, entity))
+
         return g

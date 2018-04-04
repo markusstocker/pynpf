@@ -6,7 +6,7 @@ from pynpf.vocab import Base, OBI, IAO, BFO, PROV
 
 
 class AverageValue(Entity):
-    def __init__(self, value_specification=None, dataset=None, prov={}):
+    def __init__(self, value_specification=None, dataset=None, prov=None):
         self.value_specification = value_specification
         self.dataset = dataset  # This is a list of events
         self.dataset_uri = None
@@ -43,7 +43,12 @@ class AverageValue(Entity):
         for element in self.dataset:
             g.add((dataset, BFO.BFO_0000051, element.uri))
 
+        g.add((self.uri, RDF.type, PROV.Entity))
+        g.add((dataset, RDF.type, PROV.Entity))
         g.add((self.uri, PROV.wasDerivedFrom, dataset))
+
+        if self.prov is None:
+            return g
 
         agent = None
         activity = None
